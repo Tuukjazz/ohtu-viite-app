@@ -6,6 +6,11 @@
     <title>Viite-app</title>
 </head>
 <body>
-    <p>testi</p>
+    <form name="lisaaviite" action="/submit" method="POST">
+        <label>Kirjoita jotain:</label>
+        <input type="text" name="testi">
+        <input type="submit" value="Lisää">
+    </form>
+    <p>{{vl}}</p>
 </body>
 </html>
