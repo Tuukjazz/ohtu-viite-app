@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 viitelista = [] # Tähän voidaan myöhemmin tallentaa viite-olioita.
@@ -17,8 +17,8 @@ def submit():
     volume = request.form["volume"]
     pages = request.form["pages"]
     # Tässä demotaan, että arvot on tosiaan saatu...
-    viitelista.append(f"({author}, {title}, {journal}, {year}, {volume}, {pages})")
-    return home()
+    viitelista.append({'Author': author, 'Title': title, 'Journal': journal, 'Year': year, 'Volume': volume, 'Pages': pages})
+    return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
