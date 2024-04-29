@@ -21,6 +21,19 @@
         <input type="text" name="pages">
         <input type="submit" value="Lisää">
     </form>
-    <p>{{vl}}</p>
+    <ol>
+        {% for entry in vl %}
+        <li>  
+            Author: {{ entry.Author }}
+            <br>Title: {{ entry.Title }}
+            <br>Journal: {{ entry.Journal }}
+            <br>Year: {{ entry.Year }} 
+            <br>Volume: {{ entry.Volmue }} 
+            <br>Pages: {{ entry.Pages }}
+          </li>
+        <br>
+        {% endfor %}  
+        </ol>
+        
 </body>
 </html>
