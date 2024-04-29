@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viite-app</title>
+</head>
+<body>
+    <form name="lisaaviite" action="/submit" method="POST">
+        <label>Author:</label>
+        <input type="text" name="author">
+        <label>Title:</label>
+        <input type="text" name="title">
+        <label>Journal:</label>
+        <input type="text" name="journal">
+        <label>Year:</label>
+        <input type="text" name="year">
+        <label>Volume:</label>
+        <input type="text" name="volume">
+        <label>Pages:</label>
+        <input type="text" name="pages">
+        <input type="submit" value="Lisää">
+    </form>
+    <ol>
+        {% for entry in vl %}
+        <li>  
+            Author: {{ entry.Author }}
+            <br>Title: {{ entry.Title }}
+            <br>Journal: {{ entry.Journal }}
+            <br>Year: {{ entry.Year }} 
+            <br>Volume: {{ entry.Volmue }} 
+            <br>Pages: {{ entry.Pages }}
+          </li>
+        <br>
+        {% endfor %}  
+        </ol>
+        
+</body>
+</html>
