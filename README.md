@@ -11,5 +11,8 @@ poetry shell
 python3 app.py
 ```
 
-### backlog
+### Backlog
 Linkki [product backlogiin](https://docs.google.com/spreadsheets/d/1Y8zzDWfnMRQlfKNQXj7rSJLi5pE2ypAosV2M5X0VCbM/edit#gid=1)
+
+### Definition of done
+Vaatimukset ovat analysoitu, suunniteltu, ohjelmoitu, testattu, testaus automatisoitu, dokumentoitu, integroitu muuhun ohjelmistoon ja viety tuotantoympäristöön.
