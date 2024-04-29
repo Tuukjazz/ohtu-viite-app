@@ -15,4 +15,4 @@ python3 app.py
 Linkki [product backlogiin](https://docs.google.com/spreadsheets/d/1Y8zzDWfnMRQlfKNQXj7rSJLi5pE2ypAosV2M5X0VCbM/edit#gid=1)
 
 ### Definition of done
-Vaatimukset ovat analysoitu, suunniteltu, ohjelmoitu, testattu, testaus automatisoitu ja integroitu muuhun ohjelmistoon.
+Vaatimukset ovat analysoitu, suunniteltu, ohjelmoitu ja integroitu muuhun ohjelmistoon.
