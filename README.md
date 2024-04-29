@@ -10,6 +10,8 @@ poetry install
 poetry shell
 python3 app.py
 ```
+### Käyttöohje
+Lisää haluamat artikkelin tiedot ja paina lisää-nappia. Lista artikkeleista löytyy alempana.
 
 ### Backlog
 Linkki [product backlogiin](https://docs.google.com/spreadsheets/d/1Y8zzDWfnMRQlfKNQXj7rSJLi5pE2ypAosV2M5X0VCbM/edit#gid=1)
