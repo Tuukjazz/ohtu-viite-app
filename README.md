@@ -1,4 +1,4 @@
-﻿![GHA workflow badge](https://github.com/Tuukkjazz/ohtu-viite-app/.github/workflows/main.yml/badge.svg)
+﻿![GHA workflow badge](https://github.com/Tuukjazz/ohtu-viite-app/.github/workflows/main.yml/badge.svg)
 
 # ohtu-viite-app
 Lähdeviiteiden tallennus nettisovellus, joka käyttää Flaskia ja SQLiteä.
