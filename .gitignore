@@ -2,3 +2,6 @@
 /__pycache__/
 /.pytest_cache
 *.venv
+output.xml
+log.html
+report.html
