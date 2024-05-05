@@ -20,6 +20,11 @@
 </style>
 </head>
 <body>
+    <form name="haedoi" action="/doi" method="POST">
+        <label for="doi">Syötä DOI:</label>
+        <input type="text" name="doi">
+        <input type="submit" value="Hae tiedot">
+    </form>
     <form name="lisaaviite" action="/submit" method="POST">
         <dic class="form-rivi">
             <label for="author"> Author:</label>

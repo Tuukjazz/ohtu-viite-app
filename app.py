@@ -20,6 +20,12 @@ def submit():
     viitelista.append({'Author': author, 'Title': title, 'Journal': journal, 'Year': year, 'Volume': volume, 'Pages': pages})
     return redirect('/')
 
+@app.route("/doi", methods=["POST"])
+def doi():
+    doi = request.form["doi"]
+    print(doi)
+    return redirect('/')
+
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
     app.run(debug=True)
