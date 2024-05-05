@@ -7,6 +7,28 @@ viitelista = [] # Tähän voidaan myöhemmin tallentaa viite-olioita.
 def home():
     return render_template("index.html", vl=viitelista)
 
+@app.route("/lisaaViite")
+def lisaaViite():
+    return render_template("lisaaViite.html", vl=viitelista)
+
+'''
+@app.route("/book")
+def book():
+    return render_template("book.html", vl=viitelista)
+
+@app.route("/article")
+def article():
+    return render_template("article.html", vl=viitelista)
+
+@app.route("/inproceeding")
+def inproceeding():
+    return render_template("inproceeding.html", vl=viitelista)
+
+@app.route("/doi")
+def doi():
+    return render_template("doi.html", vl=viitelista)
+'''
+
 @app.route("/submit", methods=["POST"])
 def submit():
     # Tallennetaan formin kenttien sisällöt muuttujiin. Muuttujien arvoilla voidaan sitten luoda viite-olio.

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viite-app</title>
+<style>
+    ul {
+        list-style-type: None;
+        margin: 0;
+        padding:0;
+    }
+    .form-rivi{
+        display:flex;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+    .form-rivi label{
+        width: 150px;
+    }
+    .form.rivi input{
+        flex-grow: 1;
+        padding: 5px;
+    }
+</style>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Etusivu</a></li>
+        <li><a href="/lisaaViite">Lisää viite</a></li>
+    </ul>
+    
+      <p>Tämä sivu ei ole vielä valmis.</p>
+      <p>Viitteen lisäys valitsin tulee tälle sivulle.</p>
+      <p>Valitsimesta mennään eteenpäin toisille sivulle,
+         jossa tallennetaan viite</p>
+    
+         <form action="/action_page.php">
+            <label for="tyyppi">Valitse tyyli</label>
+            <select name="tyyppi" id="tyyppi">
+                <option value="/article">Article</option>
+                <option value="/book">Book</option>
+                <option value="/inproceeding">Inproceeding</option>
+                <option value="/doi">DOI-tunnus</option>
+            </select>
+            <input type="submit" value="ei toimi vielä">
+            <br><br>
+        </form>
+      
+</body>
+</html>

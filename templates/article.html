@@ -29,17 +29,6 @@
         <li><a href="">Etusivu</a></li>
         <li><a href="/lisaaViite">Lisää viite</a></li>
     </ul>
-    <form action="/action_page.php">
-        <label for="tyyppi">Valitse tyyli</label>
-        <select name="tyyppi" id="tyyppi">
-            <option value="Article">Article</option>
-            <option value="Book">Book</option>
-            <option value="Inproceeding">Inproceeding</option>
-            <option value="DOI">DOI-tunnus</option>
-        </select>
-        <input type="submit" value="ei toimi vielä">
-        <br><br>
-    </form>
     <form name="lisaaviite" action="/submit" method="POST">
         <dic class="form-rivi">
             <label for="author"> Author:</label>
@@ -65,21 +54,7 @@
             <label for="page"> Page:</label>
             <input type="text" name="pages">
         </dic>
-        <input type="submit" value="Lisää">
+        <input type="submit" value="ei toimi vielä">
     </form>
-    <ol>
-        {% for entry in vl %}
-        <li>  
-            Author: {{ entry.Author }}
-            <br>Title: {{ entry.Title }}
-            <br>Journal: {{ entry.Journal }}
-            <br>Year: {{ entry.Year }} 
-            <br>Volume: {{ entry.Volume }} 
-            <br>Pages: {{ entry.Pages }}
-          </li>
-        <br>
-        {% endfor %}  
-        </ol>
-        
 </body>
 </html>
