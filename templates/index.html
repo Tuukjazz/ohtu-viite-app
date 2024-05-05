@@ -3,22 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Viite-app</title>
+<!--<style>
+    .form-rivi{
+        display:flex;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+    .form-rivi label{
+        width: 150px;
+    }
+    .form.rivi input{
+        flex-grow: 1;
+        padding: 5px;
+    }
+</style>-->
 </head>
 <body>
     <form name="lisaaviite" action="/submit" method="POST">
-        <label>Author:</label>
-        <input type="text" name="author">
-        <label>Title:</label>
-        <input type="text" name="title">
-        <label>Journal:</label>
-        <input type="text" name="journal">
-        <label>Year:</label>
-        <input type="text" name="year">
-        <label>Volume:</label>
-        <input type="text" name="volume">
-        <label>Pages:</label>
-        <input type="text" name="pages">
+        <dic class="form-rivi">
+            <label for="author"> Author:</label>
+            <input type="text" name="author">
+        </dic>
+        <dic class="form-rivi">
+            <label for="title"> Title:</label>
+            <input type="text" name="title">
+        </dic>
+        <dic class="form-rivi">
+            <label for="journal"> Journal:</label>
+            <input type="text" name="journal">
+        </dic>
+        <dic class="form-rivi">
+            <label for="year"> Year:</label>
+            <input type="text" name="year">
+        </dic>
+        <dic class="form-rivi">
+            <label for="volume"> Volume:</label>
+            <input type="text" name="volume">
+        </dic>
+        <dic class="form-rivi">
+            <label for="page"> Page:</label>
+            <input type="text" name="pages">
+        </dic>
         <input type="submit" value="Lisää">
     </form>
     <ol>

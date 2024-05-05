@@ -1,0 +1,12 @@
+.form-rivi{
+    display:flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.form-rivi label{
+    width: 150px;
+}
+.form.rivi input{
+    flex-grow: 1;
+    padding: 5px;
+}
