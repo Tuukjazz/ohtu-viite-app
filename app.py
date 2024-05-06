@@ -47,14 +47,12 @@ def submit():
 
     # Tässä demotaan, että arvot on tosiaan saatu...
     print(author, title, year, journal, volume, pages)
-    if not is_valid(author, title, year, journal, volume, pages):
-        return redirect('/')
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))
     get_db().commit()
     cur.close()
-    formatteri("apa") #TODO: oma nappi yms
+    # formatteri("apa") #TODO: oma nappi yms
     return redirect('/')
   
 @app.route("/doi", methods=["POST"])
@@ -67,21 +65,26 @@ def doi():
 def formatteri(formaatti):
     formatoitulista.clear()
 
+    cur = get_db().cursor()
+    cur.execute("select * from viite")
+    viitelista = cur.fetchall()
+    print(viitelista)
+    cur.close()
     match formaatti:
         case "apa":
             for viite in viitelista:
-                hlo = viite['Author'].split()   # Olettaa Author olevan muotoa "Etunimi Sukunimi TODO: enemmän kuin yksi
-                author = hlo[1]+", "+ viite['Author'][0]+"."
+                hlo = viite[1].split()   # Olettaa Author olevan muotoa "Etunimi Sukunimi TODO: enemmän kuin yksi
+                author = hlo[0]+", "+ viite[1][0]+"."
 
-                date = "(" + viite['Year']+")" #TODO: lisättävä päivä ja kuukausi
+                date = "(" + viite[3]+")" #TODO: lisättävä päivä ja kuukausi
 
-                title = viite['Title']
+                title = viite[2]
 
-                journal = viite['Journal']
+                journal = viite[4]
 
-                volume = viite['Volume']
+                volume = viite[5]
 
-                pages = viite['Pages']
+                pages = viite[6]
 
                 issue = "1"  #viite['Issue']
 
