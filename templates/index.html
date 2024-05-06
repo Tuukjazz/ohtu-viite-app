@@ -7,6 +7,11 @@
     <link href='/statics/style.css' type="text/css" rel="stylesheet" >
 </head>
 <body>
+    <form name="haedoi" action="/doi" method="POST">
+        <label for="doi">Syötä DOI:</label>
+        <input type="text" name="doi">
+        <input type="submit" value="Hae tiedot">
+    </form>
 <div>
     <ul>
         <li><a href="">Etusivu</a></li>
@@ -24,6 +29,7 @@
         <br><br>
     </form>
     <form name="lisaaviite" action="/submit" method="POST">
+        <label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author">
