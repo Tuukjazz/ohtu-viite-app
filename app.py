@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import re
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='statics')
 viitelista = [] # Tähän voidaan myöhemmin tallentaa viite-olioita.
 
 formatoitulista = [] # Tähän tallennetaan formatoitu versio viite-olioista (Esim. APA tai BibTex)
@@ -47,33 +47,40 @@ def submit():
     volume = request.form["volume"]
     pages = request.form["pages"]
     # Tässä demotaan, että arvot on tosiaan saatu...
-    #valid = is_valid(author, title, journal, year, volume, pages)
-    #if not valid:
-    #    return render_template("index.html", vl=viitelista) #, error_message=error_message)
+    valid = is_valid(author, title, journal, year, volume, pages)
+    if not valid:
+        return render_template("index.html", vl=viitelista) #, error_message=error_message)
     viitelista.append({'Author': author, 'Title': title, 'Journal': journal, 'Year': year, 'Volume': volume, 'Pages': pages})
-    formatteri("apa")
+    formatteri("apa") #TODO: oma nappi yms
     return redirect('/')
 
 # Formatoi johonkin muotoon match casen avulla
-# Olettaa Author olevan muotoa "Etunimi Sukunimi"
 def formatteri(formaatti):
     formatoitulista.clear()
 
     match formaatti:
         case "apa":
             for viite in viitelista:
-                hlo = viite['Author'].split()
-                authors = hlo[1]+", "+ viite['Author'][0]
+                hlo = viite['Author'].split()   # Olettaa Author olevan muotoa "Etunimi Sukunimi TODO: enemmän kuin yksi
+                author = hlo[1]+", "+ viite['Author'][0]+"."
 
-                date = "(" + viite['Year'] + ", " + "January 1" + ")" #TODO: lisättävä päivä ja kuukausi
+                date = "(" + viite['Year']+")" #TODO: lisättävä päivä ja kuukausi
 
                 title = viite['Title']
 
-                publication = viite['Journal']
+                journal = viite['Journal']
 
-                osoite = "Insert 'URL or DOI'" #TODO: viite['Osoite'] Joko URL tai DOI
+                volume = viite['Volume']
 
-                formatoitulista.append({'Author': authors, 'Date': date, 'Title': title, 'Publication': publication, 'Osoite': osoite})
+                pages = viite['Pages']
+
+                issue = "1"  #viite['Issue']
+
+                osoite = "https://doi.org/xxxx" #TODO: viite['Osoite'] Joko URL tai DOI
+
+                formatoitulista.append({'Author': author, 'Date': date, 'Title': title,
+                                         'Journal': journal, 'Volume': volume, 'Issue': issue, 
+                                         'Pages': pages, 'Osoite': osoite})
         
         case "bibtex":
             #TODO: BibTex format
