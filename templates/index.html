@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viite-app</title>
-<style>
-    .form-rivi{
-        display:flex;
-        margin-bottom: 10px;
-        align-items: center;
-    }
-    .form-rivi label{
-        width: 150px;
-    }
-    .form.rivi input{
-        flex-grow: 1;
-        padding: 5px;
-    }
-</style>
+    <link href='/statics/style.css' type="text/css" rel="stylesheet" >
 </head>
 <body>
     <form name="haedoi" action="/doi" method="POST">
         <label for="doi">Syötä DOI:</label>
         <input type="text" name="doi">
         <input type="submit" value="Hae tiedot">
+    </form>
+<div>
+    <ul>
+        <li><a href="">Etusivu</a></li>
+        <li><a href="/lisaaViite">Lisää viite</a></li>
+    </ul>
+    <form action="/action_page.php">
+        <label for="tyyppi">Valitse tyyli</label>
+        <select name="tyyppi" id="tyyppi">
+            <option value="Article">Article</option>
+            <option value="Book">Book</option>
+            <option value="Inproceeding">Inproceeding</option>
+            <option value="DOI">DOI-tunnus</option>
+        </select>
+        <input type="submit" value="ei toimi vielä">
+        <br><br>
     </form>
     <form name="lisaaviite" action="/submit" method="POST">
         <dic class="form-rivi">
@@ -64,7 +67,12 @@
           </li>
         <br>
         {% endfor %}  
-        </ol>
+    </ol>
+</div>
+
+<div class="tulostus">
+    <p>Tulostusalue bibtex/apa</p>
+</div>
         
 </body>
 </html>
