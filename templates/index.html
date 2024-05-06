@@ -60,6 +60,15 @@
         <br>
         {% endfor %}  
         </ol>
+
+        <ol>
+            {% for entry in fl %}
+            <li>  
+                {{ entry.Author }}. {{ entry.Date}}. {{ entry.Title }}. <i>{{ entry.Publication }}</i>. {{ entry.Osoite }}
+              </li>
+            <br>
+            {% endfor %}  
+            </ol>
         
 </body>
 </html>
