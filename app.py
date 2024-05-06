@@ -1,13 +1,31 @@
-from flask import Flask, render_template, request, redirect
+import sqlite3
+from flask import Flask, render_template, request, redirect, g
 import re
 
+DATABASE = './database.db'
 app = Flask(__name__, static_folder='statics')
-viitelista = [] # Tähän voidaan myöhemmin tallentaa viite-olioita.
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+        db.execute("""CREATE TABLE IF NOT EXISTS viite(
+            id INTEGER PRIMARY KEY,
+            author VARCHAR(255) NOT NULL,
+            title VARCHAR(255) NOT NULL,
+            year INTEGER NOT NULL,
+            journal VARCHAR(255) NOT NULL,
+            volume VARCHAR(50) NOT NULL,
+            pages VARCHAR(50) NOT NULL
+            )""")
+    return db
+
+
 
 formatoitulista = [] # Tähän tallennetaan formatoitu versio viite-olioista (Esim. APA tai BibTex)
 
 # Tarkistaa kenttien oikeellisuuden
-def is_valid(author, title, journal, year, volume, pages):
+def is_valid(author, title, year, journal, volume, pages):
     fields = {
         'author': author,
         'title': title,
@@ -28,13 +46,17 @@ def is_valid(author, title, journal, year, volume, pages):
     for field, field_value in fields.items():
         value = re.fullmatch(field_syntax[field], field_value)
         if not value:
+            print(field, value)
             return False
     # Voisi lisätä virheilmoitukset
-
     return True
 
 @app.route("/")
 def home():
+    cur = get_db().cursor()
+    cur.execute("select * from viite")
+    viitelista = cur.fetchall()
+    cur.close()
     return render_template("index.html", vl=viitelista, fl=formatoitulista)
 
 @app.route("/submit", methods=["POST"])
@@ -42,15 +64,19 @@ def submit():
     # Tallennetaan formin kenttien sisällöt muuttujiin. Muuttujien arvoilla voidaan sitten luoda viite-olio.
     author = request.form["author"]
     title = request.form["title"]
-    journal = request.form["journal"]
     year = request.form["year"]
+    journal = request.form["journal"]
     volume = request.form["volume"]
     pages = request.form["pages"]
     # Tässä demotaan, että arvot on tosiaan saatu...
-    valid = is_valid(author, title, journal, year, volume, pages)
-    if not valid:
-        return render_template("index.html", vl=viitelista) #, error_message=error_message)
-    viitelista.append({'Author': author, 'Title': title, 'Journal': journal, 'Year': year, 'Volume': volume, 'Pages': pages})
+    print(author, title, year, journal, volume, pages)
+    if not is_valid(author, title, year, journal, volume, pages):
+        return redirect('/')
+    cur = get_db().cursor()
+    cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
+                (author, title, year, journal, volume, pages))
+    get_db().commit()
+    cur.close()
     formatteri("apa") #TODO: oma nappi yms
     return redirect('/')
 
