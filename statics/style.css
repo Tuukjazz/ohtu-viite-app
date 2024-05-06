@@ -1,4 +1,9 @@
 
+ul {
+  list-style-type: None;
+  margin: 0;
+  padding:0;
+}
 .form-rivi{
     display:flex;
     margin-bottom: 10px;
