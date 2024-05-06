@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.10"
 flask = "^3.0.3"
 db-sqlite3 = "^0.0.1"
+robotframework = "^7.0"
+robotframework-seleniumlibrary = "^6.3.0"
 
 
 [build-system]
