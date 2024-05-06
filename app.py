@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect
+from doi import doiapi
 
 app = Flask(__name__)
 viitelista = [] # Tähän voidaan myöhemmin tallentaa viite-olioita.
@@ -22,8 +23,8 @@ def submit():
 
 @app.route("/doi", methods=["POST"])
 def doi():
-    doi = request.form["doi"]
-    print(doi)
+    syote = request.form["doi"]
+    doiapi(syote)
     return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
