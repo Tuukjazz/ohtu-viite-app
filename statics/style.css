@@ -1,3 +1,4 @@
+
 .form-rivi{
     display:flex;
     margin-bottom: 10px;
@@ -9,4 +10,16 @@
 .form.rivi input{
     flex-grow: 1;
     padding: 5px;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+.tulostus {
+  width: 35%;
+  border: solid;
+  float: right;
+  margin-left: 10%;
 }
