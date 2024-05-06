@@ -13,6 +13,13 @@ python3 app.py
 ### Käyttöohje
 Lisää haluamat artikkelin tiedot ja paina lisää-nappia. Lista artikkeleista löytyy alempana.
 
+### Debuggausta
+Tietokannan debuggaus kotikansiossa:
+```
+sqlite3 database.db
+```
+Jolloin pääsee sqlite konsoliin ajamaan sql komentoja.
+
 ### Backlog
 Linkki [product backlogiin](https://docs.google.com/spreadsheets/d/1Y8zzDWfnMRQlfKNQXj7rSJLi5pE2ypAosV2M5X0VCbM/edit#gid=1)
 
