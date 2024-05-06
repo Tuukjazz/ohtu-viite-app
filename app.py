@@ -23,7 +23,7 @@ def get_db():
 
 
 # Tarkistaa kenttien oikeellisuuden
-def is_valid(author, title, journal, year, volume, pages):
+def is_valid(author, title, year, journal, volume, pages):
     fields = {
         'author': author,
         'title': title,
@@ -44,6 +44,7 @@ def is_valid(author, title, journal, year, volume, pages):
     for field, field_value in fields.items():
         value = re.fullmatch(field_syntax[field], field_value)
         if not value:
+            print(field, value)
             return False
     # Voisi lisätä virheilmoitukset
     return True
@@ -61,16 +62,18 @@ def submit():
     # Tallennetaan formin kenttien sisällöt muuttujiin. Muuttujien arvoilla voidaan sitten luoda viite-olio.
     author = request.form["author"]
     title = request.form["title"]
-    journal = request.form["journal"]
     year = request.form["year"]
+    journal = request.form["journal"]
     volume = request.form["volume"]
     pages = request.form["pages"]
     # Tässä demotaan, että arvot on tosiaan saatu...
-    if not is_valid(author, title, journal, year, volume, pages):
+    print(author, title, year, journal, volume, pages)
+    if not is_valid(author, title, year, journal, volume, pages):
         return redirect('/')
     cur = get_db().cursor()
-    cur.execute("INSERT INTO viite (author, title, journal, year, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
-                (author, title, journal, year, volume, pages))
+    cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
+                (author, title, year, journal, volume, pages))
+    get_db().commit()
     cur.close()
     return redirect('/')
 
