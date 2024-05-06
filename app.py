@@ -22,6 +22,8 @@ def get_db():
 
 
 
+formatoitulista = [] # Tähän tallennetaan formatoitu versio viite-olioista (Esim. APA tai BibTex)
+
 # Tarkistaa kenttien oikeellisuuden
 def is_valid(author, title, year, journal, volume, pages):
     fields = {
@@ -55,7 +57,7 @@ def home():
     cur.execute("select * from viite")
     viitelista = cur.fetchall()
     cur.close()
-    return render_template("index.html", vl=viitelista)
+    return render_template("index.html", vl=viitelista, fl=formatoitulista)
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -75,7 +77,41 @@ def submit():
                 (author, title, year, journal, volume, pages))
     get_db().commit()
     cur.close()
+    formatteri("apa") #TODO: oma nappi yms
     return redirect('/')
+
+# Formatoi johonkin muotoon match casen avulla
+def formatteri(formaatti):
+    formatoitulista.clear()
+
+    match formaatti:
+        case "apa":
+            for viite in viitelista:
+                hlo = viite['Author'].split()   # Olettaa Author olevan muotoa "Etunimi Sukunimi TODO: enemmän kuin yksi
+                author = hlo[1]+", "+ viite['Author'][0]+"."
+
+                date = "(" + viite['Year']+")" #TODO: lisättävä päivä ja kuukausi
+
+                title = viite['Title']
+
+                journal = viite['Journal']
+
+                volume = viite['Volume']
+
+                pages = viite['Pages']
+
+                issue = "1"  #viite['Issue']
+
+                osoite = "https://doi.org/xxxx" #TODO: viite['Osoite'] Joko URL tai DOI
+
+                formatoitulista.append({'Author': author, 'Date': date, 'Title': title,
+                                         'Journal': journal, 'Volume': volume, 'Issue': issue, 
+                                         'Pages': pages, 'Osoite': osoite})
+        
+        case "bibtex":
+            #TODO: BibTex format
+            pass
+
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
