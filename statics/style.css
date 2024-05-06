@@ -28,3 +28,10 @@ body {
   float: right;
   margin-left: 10%;
 }
+
+.ref-apa {
+  font-size: 12pt;
+  padding-left: 2em;
+  text-indent: -2em;
+  list-style-type: none;
+}
