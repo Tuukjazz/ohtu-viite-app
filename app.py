@@ -33,27 +33,6 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, fl=formatoitulista, er=error_message)
 
-@app.route("/lisaaViite")
-def lisaaViite():
-    return render_template("lisaaViite.html", vl=viitelista)
-
-'''
-@app.route("/book")
-def book():
-    return render_template("book.html", vl=viitelista)
-
-@app.route("/article")
-def article():
-    return render_template("article.html", vl=viitelista)
-
-@app.route("/inproceeding")
-def inproceeding():
-    return render_template("inproceeding.html", vl=viitelista)
-
-@app.route("/doi")
-def doi():
-    return render_template("doi.html", vl=viitelista)
-'''
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -69,8 +48,8 @@ def submit():
 
     # Tässä demotaan, että arvot on tosiaan saatu...
     print(author, title, year, journal, volume, pages)
-    if not is_valid(author, title, year, journal, volume, pages):
-        return redirect('/')
+    #if not is_valid(author, title, year, journal, volume, pages):
+    #    return redirect('/')
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))

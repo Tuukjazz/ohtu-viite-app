@@ -1,9 +1,4 @@
 
-ul {
-  list-style-type: None;
-  margin: 0;
-  padding:0;
-}
 .form-rivi{
     display:flex;
     margin-bottom: 10px;
@@ -26,7 +21,7 @@ body {
   width: 35%;
   border: solid;
   float: right;
-  margin-left: 10%;
+  margin-left: 40%;
 }
 
 .ref-apa {
