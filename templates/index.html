@@ -7,6 +7,11 @@
     <link href='/statics/style.css' type="text/css" rel="stylesheet" >
 </head>
 <body>
+    <form name="haedoi" action="/doi" method="POST">
+        <label for="doi">Syötä DOI:</label>
+        <input type="text" name="doi">
+        <input type="submit" value="Hae tiedot">
+    </form>
 <div>
     <ul>
         <li><a href="">Etusivu</a></li>
@@ -24,6 +29,7 @@
         <br><br>
     </form>
     <form name="lisaaviite" action="/submit" method="POST">
+        <label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author">
@@ -53,12 +59,12 @@
     <ol>
         {% for entry in vl %}
         <li>  
-            Author: {{ entry.Author }}
-            <br>Title: {{ entry.Title }}
-            <br>Journal: {{ entry.Journal }}
-            <br>Year: {{ entry.Year }} 
-            <br>Volume: {{ entry.Volume }} 
-            <br>Pages: {{ entry.Pages }}
+            Author: {{ entry[1] }}
+            <br>Title: {{ entry[2] }}
+            <br>Year: {{ entry[3] }} 
+            <br>Journal: {{ entry[4] }}
+            <br>Volume: {{ entry[5] }} 
+            <br>Pages: {{ entry[6] }}
           </li>
         <br>
         {% endfor %}  
@@ -67,6 +73,20 @@
 
 <div class="tulostus">
     <p>Tulostusalue bibtex/apa</p>
+
+    <ol class="ref-apa">
+        {% for entry in fl %}
+        <li>  
+            {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
+        <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
+        </li>
+        </br>
+        {% endfor %} 
+  </ol>
+</div>
+
+
+        </ol>
 </div>
         
 </body>
