@@ -8,42 +8,92 @@
 </head>
 <body>
 <div>
-    <form action="/action_page.php">
-        <label for="tyyppi">Valitse tyyli</label>
-        <select name="tyyppi" id="tyyppi">
-            <option value="-">-</option>
-            <option value="Article">Article</option>
-            <option value="Book">Book</option>
-            <option value="Inproceeding">Inproceeding</option>
-        </select>
-        <input type="submit" value="valitse">
-        <br><br>
-    </form>
+    <label for="tyyppi">Valitse tyyli</label>
+    <select name="tyyppi" onchange="valitseFunction(this)">
+        <option value="0">-</option>
+        <option value="1">Article</option>
+        <option value="2">Book</option>
+        <option value="3">Inproceeding</option>
+    </select>
+    <script type="text/javascript">
+        function valitseFunction(obj){
+           if (obj.value == "0"){
+                document.querySelector('.author').disabled = true;
+                document.querySelector('.title').disabled = true;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = true;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = true;
+            } 
+           if (obj.value == "1"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = false;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = false;
+                document.querySelector('.pages').disabled = false;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = true;
+           }
+           if (obj.value == "2"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = false;
+                document.querySelector('.publisher').disabled = true;
+           }
+           if (obj.value == "3"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = false;
+           }
+        }
+    </script>
+    <br><br>
+    
     <form name="lisaaviite" action="/submit" method="POST">
         <label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
-            <input type="text" id="author" name="author">
+            <input type="text" id="author" name="author" class="author" disabled>
         </dic>
         <dic class="form-rivi">
             <label for="title"> Title:</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" class="title" disabled>
         </dic>
         <dic class="form-rivi">
             <label for="journal"> Journal:</label>
-            <input type="text" id="journal" name="journal">
+            <input type="text" id="journal" name="journal" class="journal" disabled>
         </dic>
         <dic class="form-rivi">
             <label for="year"> Year:</label>
-            <input type="text" id="year" name="year">
+            <input type="text" id="year" name="year" class="year" disabled>
         </dic>
         <dic class="form-rivi">
             <label for="volume"> Volume:</label>
-            <input type="text" id="volume" name="volume">
+            <input type="text" id="volume" name="volume" class="volume" disabled>
         </dic>
         <dic class="form-rivi">
             <label for="page"> Page:</label>
-            <input type="text" id="pages" name="pages">
+            <input type="text" id="pages" name="pages" class="pages" disabled>
+        </dic>
+        <dic class="form-rivi">
+            <label for="booktitle"> Booktitle:</label>
+            <input type="text" id="booktitle" name="booktitle" class="booktitle" disabled>
+        </dic>
+        <dic class="form-rivi">
+            <label for="publisher"> Publisher:</label>
+            <input type="text" id="publisher" name="publisher" class="publisher" disabled>
         </dic>
         <input type="submit" id="submit" value="Lisää">
         <div>    
