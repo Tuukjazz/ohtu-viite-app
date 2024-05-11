@@ -40,11 +40,12 @@ def submit():
     pages = request.form["pages"]
     global error_message 
     error_message = validate_article(author, title, journal, year, volume, pages)
+    print(author, title, year, journal, volume, pages, error_message)
     if len(error_message) > 0:
         return redirect('/')
 
     # Tässä demotaan, että arvot on tosiaan saatu...
-    print(author, title, year, journal, volume, pages)
+    
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))
