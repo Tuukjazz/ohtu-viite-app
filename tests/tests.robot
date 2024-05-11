@@ -18,7 +18,6 @@ Submit Valid Form
     Location Should Be    ${BASE URL}/
 
 Submit Invalid Year
-    Open Browser    ${BASE URL}    ${BROWSER}
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -26,11 +25,10 @@ Submit Invalid Year
     Input Text      id=volume      10
     Input Text      id=pages       20-30
     Click Button    id=submit
-    Location Should Be    ${BASE URL}/submit
+    Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
 
 Submit Invalid Volume
-    Open Browser    ${BASE URL}    ${BROWSER}
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -38,11 +36,10 @@ Submit Invalid Volume
     Input Text      id=volume      asdf
     Input Text      id=pages       20-30
     Click Button    id=submit
-    Location Should Be    ${BASE URL}/submit
+    Location Should Be    ${BASE URL}/
     Page Should Contain    Volume must be a positive integer.
 
 Submit Invalid Pages
-    Open Browser    ${BASE URL}    ${BROWSER}
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -50,7 +47,7 @@ Submit Invalid Pages
     Input Text      id=volume      10
     Input Text      id=pages       asdf
     Click Button    id=submit
-    Location Should Be    ${BASE URL}/submit
+    Location Should Be    ${BASE URL}/
     Page Should Contain    Pages must be a range in the format "start-end" or a single number.
 
 *** Keywords ***
