@@ -33,7 +33,6 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, fl=formatoitulista, er=error_message)
 
-
 @app.route("/submit", methods=["POST"])
 def submit():
     author = request.form["author"]
@@ -47,9 +46,7 @@ def submit():
         return redirect('/')
 
     # Tässä demotaan, että arvot on tosiaan saatu...
-    print(author, title, year, journal, volume, pages)
-    #if not is_valid(author, title, year, journal, volume, pages):
-    #    return redirect('/')
+    print(author, title, year, journal, volume, pages, error_message)
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))
