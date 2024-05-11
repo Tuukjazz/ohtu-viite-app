@@ -28,8 +28,11 @@
         <input type="submit" value="ei toimi vielä">
         <br><br>
     </form>
+	{% if er %}
+	<p style="color: red;"> {{ er }} </p>
+	{% endif %}
     <form name="lisaaviite" action="/submit" method="POST">
-        <label>{{em}}</label>
+		<label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author">
