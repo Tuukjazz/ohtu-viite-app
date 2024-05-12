@@ -6,13 +6,13 @@
         <title>Viite-app</title>
         <link href='/statics/style.css' type="text/css" rel="stylesheet" >
     </head>
-        <div>
-            <body>
-                <form name="haedoi" action="/doi" method="POST">
-                    <label for="doi">Syötä DOI:</label>
-                    <input type="text" name="doi">
-                    <input type="submit" value="Hae tiedot">
-                </form>
+        <body>
+            <form name="haedoi" action="/doi" method="POST">
+                <label for="doi">Syötä DOI:</label>
+                <input type="text" name="doi">
+                <input type="submit" value="Hae tiedot">
+            </form>
+            <div>
                 <ul>
                     <li><a href="">Etusivu</a></li>
                     <li><a href="/lisaaViite">Lisää viite</a></li>
@@ -28,6 +28,9 @@
                     <input type="submit" value="ei toimi vielä">
                     <br><br>
                 </form>
+                {% if er %}
+                <p style="color: red;"> {{ er }} </p>
+                {% endif %}
                 <form name="lisaaviite" action="/submit" method="POST">
                     <label>{{em}}</label>
                     <dic class="form-rivi">
@@ -72,25 +75,25 @@
                     <br>
                     {% endfor %}  
                 </ol>
-        </div>
+            </div>
 
-        <div class="tulostus">
-            <p>Tulostusalue bibtex/apa</p>
+            <div class="tulostus">
+                <p>Tulostusalue bibtex/apa</p>
 
-            <ol class="ref-apa">
-                {% for entry in fl %}
-                <li>  
-                    {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
-                    <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
-                </li>
+                <ol class="ref-apa">
+                    {% for entry in fl %}
+                    <li>  
+                        {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
+                        <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
+                    </li>
                     </br>
                     {% endfor %} 
+                </ol>
+            </div>
+
+
             </ol>
-        </div>
+            </div>
 
-
-        </ol>
-        </div>
-
-            </body>
+        </body>
 </html>
