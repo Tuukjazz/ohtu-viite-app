@@ -1,38 +1,28 @@
-formatoitulista = [] # Tähän tallennetaan formatoitu versio viite-olioista (Esim. APA tai BibTex)
+from doi import doiapi
+import sqlite3
+from flask import Flask, render_template, request, redirect, g
 
 #Formatoi johonkin muotoon match casen avulla
-def formatteri(formaatti):
-    formatoitulista.clear()
+#Esimerkki BibTex
+#   @article{ id,
+#     author = {},
+#     title = {},
+#     year = {},
+#     journal = {},
+#     volume = {},
+#     pages = {}
+#   }
 
-    cur = get_db().cursor()
-    cur.execute("select * from viite")
-    viitelista = cur.fetchall()
-    print(viitelista)
-    cur.close()
-    match formaatti:
-        case "apa":
-            for viite in viitelista:
-                hlo = viite[1].split()   # Olettaa Author olevan muotoa "Etunimi Sukunimi TODO: enemmän kuin yksi
-                author = hlo[0]+", "+ viite[1][0]+"."
-
-                date = "(" + viite[3]+")" #TODO: lisättävä päivä ja kuukausi
-
-                title = viite[2]
-
-                journal = viite[4]
-
-                volume = viite[5]
-
-                pages = viite[6]
-
-                issue = "1"  #viite['Issue']
-
-                osoite = "https://doi.org/xxxx" #TODO: viite['Osoite'] Joko URL tai DOI
-
-                formatoitulista.append({'Author': author, 'Date': date, 'Title': title,
-                                         'Journal': journal, 'Volume': volume, 'Issue': issue, 
-                                         'Pages': pages, 'Osoite': osoite})
-        
-        case "bibtex":
-            #TODO: BibTex format
-            pass
+def muuttaja(lista):
+    ml = []
+    for viite in lista:
+        bibtex_entry = f"@article{{ { viite[0] },\n"
+        bibtex_entry += f"  author = {viite[1]},\n"
+        bibtex_entry += f"  title = {viite[2]},\n"
+        bibtex_entry += f"  year = {viite[3]},\n"
+        bibtex_entry += f"  journal = {viite[4]},\n"
+        bibtex_entry += f"  volume = {viite[5]},\n"
+        bibtex_entry += f"  pages = {viite[6]}\n"
+        bibtex_entry += f"}}"
+        ml.append(bibtex_entry)
+    return ml

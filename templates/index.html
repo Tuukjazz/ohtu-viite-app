@@ -78,22 +78,14 @@
             </div>
 
             <div class="tulostus">
-                <p>Tulostusalue bibtex/apa</p>
+                <p>Tulostusalue bibtex</p>
 
-                <ol class="ref-apa">
-                    {% for entry in fl %}
-                    <li>  
-                        {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
-                        <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
-                    </li>
-                    </br>
-                    {% endfor %} 
-                </ol>
+                <ul class="bibtex">
+                    {% for entry in ml %}
+                    <li><pre>{{ entry }}</pre></li>
+                    {% endfor %}  
+                </ul>
+
             </div>
-
-
-            </ol>
-            </div>
-
         </body>
 </html>

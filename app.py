@@ -1,4 +1,5 @@
 from doi import doiapi
+from formatteri import muuttaja
 from validation import validate_article
 import sqlite3
 from flask import Flask, render_template, request, redirect, g
@@ -28,7 +29,8 @@ def home():
     cur.execute("select * from viite")
     viitelista = cur.fetchall()
     cur.close()
-    return render_template("index.html", vl=viitelista, er=error_message)
+    muutettulista = muuttaja(viitelista)
+    return render_template("index.html", vl=viitelista, er=error_message, ml=muutettulista)
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -67,6 +69,10 @@ def doi():
     doiapi(syote)
     return redirect('/')
 
+#@app.route("/formatteri", methods=["POST"])
+#def formatteri():
+#    fuck you
+    
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
     app.run(debug=True)
