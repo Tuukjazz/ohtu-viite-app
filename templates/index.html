@@ -1,93 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viite-app</title>
-    <link href='/statics/style.css' type="text/css" rel="stylesheet" >
-</head>
-<body>
-    <form name="haedoi" action="/doi" method="POST">
-        <label for="doi">Syötä DOI:</label>
-        <input type="text" name="doi">
-        <input type="submit" value="Hae tiedot">
-    </form>
-<div>
-    <ul>
-        <li><a href="">Etusivu</a></li>
-        <li><a href="/lisaaViite">Lisää viite</a></li>
-    </ul>
-    <form action="/action_page.php">
-        <label for="tyyppi">Valitse tyyli</label>
-        <select name="tyyppi" id="tyyppi">
-            <option value="Article">Article</option>
-            <option value="Book">Book</option>
-            <option value="Inproceeding">Inproceeding</option>
-            <option value="DOI">DOI-tunnus</option>
-        </select>
-        <input type="submit" value="ei toimi vielä">
-        <br><br>
-    </form>
-    <form name="lisaaviite" action="/submit" method="POST">
-        <label>{{em}}</label>
-        <dic class="form-rivi">
-            <label for="author"> Author:</label>
-            <input type="text" id="author" name="author">
-        </dic>
-        <dic class="form-rivi">
-            <label for="title"> Title:</label>
-            <input type="text" id="title" name="title">
-        </dic>
-        <dic class="form-rivi">
-            <label for="journal"> Journal:</label>
-            <input type="text" id="journal" name="journal">
-        </dic>
-        <dic class="form-rivi">
-            <label for="year"> Year:</label>
-            <input type="text" id="year" name="year">
-        </dic>
-        <dic class="form-rivi">
-            <label for="volume"> Volume:</label>
-            <input type="text" id="volume" name="volume">
-        </dic>
-        <dic class="form-rivi">
-            <label for="page"> Page:</label>
-            <input type="text" id="pages" name="pages">
-        </dic>
-        <input type="submit" id="submit" value="Lisää">
-    </form>
-    <ol>
-        {% for entry in vl %}
-        <li>  
-            Author: {{ entry[1] }}
-            <br>Title: {{ entry[2] }}
-            <br>Year: {{ entry[3] }} 
-            <br>Journal: {{ entry[4] }}
-            <br>Volume: {{ entry[5] }} 
-            <br>Pages: {{ entry[6] }}
-          </li>
-        <br>
-        {% endfor %}  
-    </ol>
-</div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Viite-app</title>
+        <link href='/statics/style.css' type="text/css" rel="stylesheet" >
+    </head>
+        <div>
+            <body>
+                <form name="haedoi" action="/doi" method="POST">
+                    <label for="doi">Syötä DOI:</label>
+                    <input type="text" name="doi">
+                    <input type="submit" value="Hae tiedot">
+                </form>
+                <ul>
+                    <li><a href="">Etusivu</a></li>
+                    <li><a href="/lisaaViite">Lisää viite</a></li>
+                </ul>
+                <form action="/action_page.php">
+                    <label for="tyyppi">Valitse tyyli</label>
+                    <select name="tyyppi" id="tyyppi">
+                        <option value="Article">Article</option>
+                        <option value="Book">Book</option>
+                        <option value="Inproceeding">Inproceeding</option>
+                        <option value="DOI">DOI-tunnus</option>
+                    </select>
+                    <input type="submit" value="ei toimi vielä">
+                    <br><br>
+                </form>
+                <form name="lisaaviite" action="/submit" method="POST">
+                    <label>{{em}}</label>
+                    <dic class="form-rivi">
+                    <label for="author"> Author:</label>
+                    <input type="text" id="author" name="author">
+                    </dic>
+                    <dic class="form-rivi">
+                    <label for="title"> Title:</label>
+                    <input type="text" id="title" name="title">
+                    </dic>
+                    <dic class="form-rivi">
+                    <label for="journal"> Journal:</label>
+                    <input type="text" id="journal" name="journal">
+                    </dic>
+                    <dic class="form-rivi">
+                    <label for="year"> Year:</label>
+                    <input type="text" id="year" name="year">
+                    </dic>
+                    <dic class="form-rivi">
+                    <label for="volume"> Volume:</label>
+                    <input type="text" id="volume" name="volume">
+                    </dic>
+                    <dic class="form-rivi">
+                    <label for="page"> Page:</label>
+                    <input type="text" id="pages" name="pages">
+                    </dic>
+                    <input type="submit" id="submit" value="Lisää">
+                </form>
+                <ol>
+                    {% for entry in vl %}
+                    <li>  
+                        <form action="/delete" method="POST">
+                            Author: {{ entry[1] }}
+                            <br>Title: {{ entry[2] }}
+                            <br>Year: {{ entry[3] }} 
+                            <br>Journal: {{ entry[4] }}
+                            <br>Volume: {{ entry[5] }} 
+                            <br>Pages: {{ entry[6] }}
+                            <br><input type="submit" value={{entry[0]}} name="id">
+                        </form>
+                    </li>
+                    <br>
+                    {% endfor %}  
+                </ol>
+        </div>
 
-<div class="tulostus">
-    <p>Tulostusalue bibtex/apa</p>
+        <div class="tulostus">
+            <p>Tulostusalue bibtex/apa</p>
 
-    <ol class="ref-apa">
-        {% for entry in fl %}
-        <li>  
-            {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
-        <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
-        </li>
-        </br>
-        {% endfor %} 
-  </ol>
-</div>
+            <ol class="ref-apa">
+                {% for entry in fl %}
+                <li>  
+                    {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
+                    <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
+                </li>
+                    </br>
+                    {% endfor %} 
+            </ol>
+        </div>
 
 
         </ol>
-</div>
-        
-</body>
+        </div>
+
+            </body>
 </html>
