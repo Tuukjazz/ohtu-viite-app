@@ -1,7 +1,3 @@
-from doi import doiapi
-import sqlite3
-from flask import Flask, render_template, request, redirect, g
-
 #Formatoi johonkin muotoon match casen avulla
 #Esimerkki BibTex
 #   @article{ id,
