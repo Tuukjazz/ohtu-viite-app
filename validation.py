@@ -26,7 +26,7 @@ def validate_article(author, title, journal, year, volume, pages):
         'volume': 'Volume must be a positive integer.',
         'pages': 'Pages must be a range in the format "start-end" or a single number.'
     }
-    
+    # returns only first error, needs change so every error is returned
     for field, field_value in fields.items():
         value = re.compile(field_syntax[field])
         if not value.fullmatch(field_value):

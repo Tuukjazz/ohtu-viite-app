@@ -3,7 +3,6 @@ from validation import validate_article
 import sqlite3
 from flask import Flask, render_template, request, redirect, g
 
-
 DATABASE = './database.db'
 app = Flask(__name__, static_folder='statics')
 error_message = ""
@@ -39,10 +38,12 @@ def submit():
     journal = request.form["journal"]
     volume = request.form["volume"]
     pages = request.form["pages"]
+    global error_message 
     error_message = validate_article(author, title, journal, year, volume, pages)
     if len(error_message) > 0:
         return redirect('/')
-    print(author, title, year, journal, volume, pages)
+    # Tässä demotaan, että arvot on tosiaan saatu...
+    print(author, title, year, journal, volume, pages, error_message)
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))
