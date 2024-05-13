@@ -7,5 +7,5 @@ CREATE TABLE article (
   volume TEXT,
   pages TEXT,
   booktitle TEXT,
-  publisher Text
+  publisher TEXT
 );
