@@ -119,10 +119,6 @@ def doi():
         cur.close()
     return redirect('/')
 
-#@app.route("/formatteri", methods=["POST"])
-#def formatteri():
-#    fuck you
-    
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
     app.run(debug=True)
