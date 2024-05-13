@@ -33,12 +33,8 @@ def home():
     cur.execute("select * from viite")
     viitelista = cur.fetchall()
     cur.close()
-<<<<<<< HEAD
     muutettulista = muuttaja(viitelista)
-    return render_template("index.html", vl=viitelista, er=error_message, ml=muutettulista)
-=======
-    return render_template("index.html", vl=viitelista, de=doierror, er=error_message)
-
+    return render_template("index.html", vl=viitelista, er=error_message, de=doierror, ml=muutettulista)
 
 @app.route('/haku', methods=['GET', 'POST'])
 def haku():
@@ -51,7 +47,6 @@ def haku():
         cur.close()
         return render_template("index.html", vl=viitelista, de=doierror, er=error_message)
     return render_template('index.html')
->>>>>>> 3973cd44d708ec9d03097607c7d9421fc9fdd962
 
 @app.route("/submit", methods=["POST"])
 def submit():
