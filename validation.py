@@ -1,7 +1,7 @@
 import re
 
 # Tarkistaa kenttien oikeellisuuden
-def validate_article(author, title, journal, year, volume, pages):
+def validate_article(author, title, journal, year, volume, pages, booktitle, publisher):
     fields = {
         'author': author,
         'title': title,
@@ -9,6 +9,7 @@ def validate_article(author, title, journal, year, volume, pages):
         'year': year,
         'volume': volume,
         'pages': pages
+
     }
     field_syntax = {
         'author': '.+',
