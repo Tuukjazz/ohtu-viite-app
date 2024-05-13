@@ -54,7 +54,6 @@ def submit():
     error_message = validate_article(author, title, journal, year, volume, pages)
     if len(error_message) > 0:
         return redirect('/')
-
     # Tässä demotaan, että arvot on tosiaan saatu...
     print(author, title, year, journal, volume, pages, error_message)
     cur = get_db().cursor()
@@ -73,7 +72,11 @@ def delete():
     get_db().commit()
     cur.close()
     return redirect('/')
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 29e9f0a1306652b94d051d91d6dbc1fd2e28b868
 @app.route("/doi", methods=["POST"])
 def doi():
     syote = request.form["doi"]
