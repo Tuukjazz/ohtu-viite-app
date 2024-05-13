@@ -30,7 +30,7 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, er=error_message)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/haku', methods=['GET', 'POST'])
 def haku():
     if request.method == 'POST':
         cur = get_db().cursor()

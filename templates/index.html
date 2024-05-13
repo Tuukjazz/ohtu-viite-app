@@ -60,7 +60,7 @@
         <input type="submit" id="submit" value="Lisää">
     </form>
     <h3>Hae lähteitä</h3>
-    <form  method="post">
+    <form action="/haku" method="post">
         <select name="hakutyyppi">
             <option value="author">Author</option>
             <option value="title">Title</option>
@@ -76,12 +76,15 @@
     <ol>
         {% for entry in vl %}
         <li>  
-            Author: {{ entry[1] }}
-            <br>Title: {{ entry[2] }}
-            <br>Year: {{ entry[3] }} 
-            <br>Journal: {{ entry[4] }}
-            <br>Volume: {{ entry[5] }} 
-            <br>Pages: {{ entry[6] }}
+            <form action="/delete" method="POST">
+                Author: {{ entry[1] }}
+                <br>Title: {{ entry[2] }}
+                <br>Year: {{ entry[3] }} 
+                <br>Journal: {{ entry[4] }}
+                <br>Volume: {{ entry[5] }} 
+                <br>Pages: {{ entry[6] }}
+                <br><input type="submit" value={{entry[0]}} name="id">
+            </form>
           </li>
         <br>
         {% endfor %}  
