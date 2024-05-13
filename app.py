@@ -72,11 +72,7 @@ def delete():
     get_db().commit()
     cur.close()
     return redirect('/')
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 29e9f0a1306652b94d051d91d6dbc1fd2e28b868
 @app.route("/doi", methods=["POST"])
 def doi():
     syote = request.form["doi"]
