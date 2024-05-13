@@ -14,6 +14,7 @@
         <option value="1">Article</option>
         <option value="2">Book</option>
         <option value="3">Inproceeding</option>
+        <option value="4">Testi</option>
     </select>
     <script type="text/javascript">
         function valitseFunction(obj){
@@ -57,6 +58,16 @@
                 document.querySelector('.booktitle').disabled = true;
                 document.querySelector('.publisher').disabled = false;
            }
+           if (obj.value == "4"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = false;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = false;
+                document.querySelector('.pages').disabled = false;
+                document.querySelector('.booktitle').disabled = false;
+                document.querySelector('.publisher').disabled = false;
+            }
         }
     </script>
     <br><br>
@@ -113,6 +124,8 @@
             <br>Journal: {{ entry[4] }}
             <br>Volume: {{ entry[5] }} 
             <br>Pages: {{ entry[6] }}
+            <br>Booktitle: {{ entry[7] }}
+            <br>Publisher: {{ entry[8] }}
           </li>
         <br>
         {% endfor %}  

@@ -1,14 +1,17 @@
 import re
 
 # Tarkistaa kenttien oikeellisuuden
-def validate_article(author, title, journal, year, volume, pages):
+def validate_article(author, title, journal, year, volume, pages, booktitle, publisher):
     fields = {
         'author': author,
         'title': title,
         'journal': journal,
         'year': year,
         'volume': volume,
-        'pages': pages
+        'pages': pages,
+        'booktitle': booktitle,
+        'publisher': publisher
+
     }
     field_syntax = {
         'author': '.+',
@@ -16,7 +19,9 @@ def validate_article(author, title, journal, year, volume, pages):
         'journal': '.+',
         'year': '[0-9]{4}',
         'volume': '[0-9]+',
-        'pages': '[0-9]+(-[0-9]+)?'
+        'pages': '[0-9]+(-[0-9]+)?',
+        'booktitle': '.+',
+        'publisher': '.+'
     }
     error_messages = {
         'author': 'Author field cannot be empty.',
@@ -24,7 +29,9 @@ def validate_article(author, title, journal, year, volume, pages):
         'journal': 'Journal field cannot be empty.',
         'year': 'Year must be a four-digit number (YYYY).',
         'volume': 'Volume must be a positive integer.',
-        'pages': 'Pages must be a range in the format "start-end" or a single number.'
+        'pages': 'Pages must be a range in the format "start-end" or a single number.',
+        'booktitle': 'booktitle field cannot be empty',
+        'publisher': 'publisher field cannot be empty'
     }
     # returns only first error, needs change so every error is returned
     for field, field_value in fields.items():

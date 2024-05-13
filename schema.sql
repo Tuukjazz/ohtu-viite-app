@@ -5,5 +5,7 @@ CREATE TABLE article (
   year INTEGER NOT NULL,
   journal TEXT,
   volume TEXT,
-  pages TEXT
+  pages TEXT,
+  booktitle TEXT,
+  publisher Text
 );
