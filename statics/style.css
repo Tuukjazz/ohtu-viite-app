@@ -30,3 +30,7 @@ body {
   text-indent: -2em;
   list-style-type: none;
 }
+
+.bibtex {
+  list-style-type: none;
+}
