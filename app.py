@@ -30,7 +30,7 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, er=error_message)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/haku', methods=['GET', 'POST'])
 def haku():
     if request.method == 'POST':
         cur = get_db().cursor()
@@ -60,6 +60,16 @@ def submit():
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages))
+    get_db().commit()
+    cur.close()
+    return redirect('/')
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    id = request.form["id"]
+    print("i: ", id)
+    cur = get_db().cursor()
+    cur.execute("DELETE FROM viite WHERE id = (?);", (id,))
     get_db().commit()
     cur.close()
     return redirect('/')
