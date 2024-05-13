@@ -30,6 +30,20 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, er=error_message)
 
+<<<<<<< HEAD
+=======
+@app.route('/haku', methods=['GET', 'POST'])
+def haku():
+    if request.method == 'POST':
+        cur = get_db().cursor()
+        hakusana = request.form['hakusana']
+        hakukentta = request.form['hakutyyppi']
+        cur.execute("select * from viite where " + hakukentta + " like '%" + hakusana + "%'")
+        viitelista = cur.fetchall()
+        cur.close()
+        return render_template("index.html", vl=viitelista, er=error_message)
+    return render_template('index.html')
+>>>>>>> 0ef880d7a5d0eee9ffd8761eeb1af58501acd49a
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -43,7 +57,6 @@ def submit():
     error_message = validate_article(author, title, journal, year, volume, pages)
     if len(error_message) > 0:
         return redirect('/')
-
     # Tässä demotaan, että arvot on tosiaan saatu...
 
     print(author, title, year, journal, volume, pages, error_message)
@@ -53,7 +66,17 @@ def submit():
     get_db().commit()
     cur.close()
     return redirect('/')
-  
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    id = request.form["id"]
+    print("i: ", id)
+    cur = get_db().cursor()
+    cur.execute("DELETE FROM viite WHERE id = (?);", (id,))
+    get_db().commit()
+    cur.close()
+    return redirect('/')
+
 @app.route("/doi", methods=["POST"])
 def doi():
     syote = request.form["doi"]
