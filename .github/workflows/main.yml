@@ -21,4 +21,4 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run tests
-        run: robot tests
+        run: poetry run robot tests
