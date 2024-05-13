@@ -30,6 +30,17 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, er=error_message)
 
+@app.route('/', methods=['GET', 'POST'])
+def haku():
+    if request.method == 'POST':
+        cur = get_db().cursor()
+        hakusana = request.form['hakusana']
+        cur.execute("select * from viite where author like '%" + hakusana + "%'")
+        viitelista = cur.fetchall()
+        cur.close()
+        return render_template("index.html", vl=viitelista, er=error_message)
+    return render_template('index.html')
+
 @app.route("/submit", methods=["POST"])
 def submit():
     author = request.form["author"]

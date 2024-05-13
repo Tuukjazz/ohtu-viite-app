@@ -59,6 +59,11 @@
         </dic>
         <input type="submit" id="submit" value="Lisää">
     </form>
+    <h3>Hae lähteitä</h3>
+    <form  method="post">
+        <input type="text" name="hakusana" placeholder="Syötä tekijän nimi">
+        <button type="submit">Hae</button>
+    </form>
     <ol>
         {% for entry in vl %}
         <li>  
