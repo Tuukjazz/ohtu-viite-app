@@ -61,7 +61,16 @@
     </form>
     <h3>Hae lähteitä</h3>
     <form  method="post">
-        <input type="text" name="hakusana" placeholder="Syötä tekijän nimi">
+        <select name="hakutyyppi">
+            <option value="author">Author</option>
+            <option value="title">Title</option>
+            <option value="year">Year</option>
+            <option value="journal">Journal</option>
+            <option value="volume">Volume</option>
+            <option value="page">Page</option>
+            <!--<option value="DOI">DOI-tunnus</option>-->
+        </select>
+        <input type="text" name="hakusana" placeholder="Syötä kentän arvo">
         <button type="submit">Hae</button>
     </form>
     <ol>
