@@ -3,7 +3,7 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${BASE URL}       http://localhost:5000
-${BROWSER}        Firefox
+${BROWSER}        headlessfirefox
 
 *** Test Cases ***
 Submit Valid Form
