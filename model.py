@@ -6,6 +6,8 @@ class Ref(db.Model):
     journal = db.Columns(db.String(250), unique=False, nullable=False)
     volume = db.Columns(db.String(50), unique=False, nullable=False)
     pages = db.Columns(db.String(50), unique=False, nullable=False)
+    booktitle = db.Columns(db.String(250), unique=False, nullable=False)
+    publisher = db.Columns(db.String(250), unique=False, nullable=False)
 
 
 
