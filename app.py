@@ -33,8 +33,7 @@ def home():
     cur.close()
     return render_template("index.html", vl=viitelista, er=error_message)
 
-<<<<<<< HEAD
-=======
+
 @app.route('/haku', methods=['GET', 'POST'])
 def haku():
     if request.method == 'POST':
@@ -46,7 +45,6 @@ def haku():
         cur.close()
         return render_template("index.html", vl=viitelista, er=error_message)
     return render_template('index.html')
->>>>>>> 0ef880d7a5d0eee9ffd8761eeb1af58501acd49a
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -75,12 +73,11 @@ def submit():
         publisher = ""
 
     global error_message 
-    #error_message = validate_article(author, title, journal, year, volume, pages, booktitle, publisher)
+    error_message = validate_article(author, title, journal, year, volume, pages, booktitle, publisher)
     if len(error_message) > 0:
         return redirect('/')
     # Tässä demotaan, että arvot on tosiaan saatu...
-
-    print(author, title, year, journal, volume, pages, booktitle, publisher, error_message)
+    print(author, title, year, journal, volume, pages, error_message)
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages, booktitle, publisher))
