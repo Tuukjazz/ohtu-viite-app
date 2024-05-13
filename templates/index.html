@@ -8,7 +8,15 @@
 </head>
 <body>
 <div>
-    <label for="tyyppi">Valitse tyyli</label>
+    {% if de %}
+	    <p style="color: red;"> {{ de }} </p>
+    {% endif %}
+    <form name="haedoi" action="/doi" method="POST">
+        <label for="doi">Syötä DOI:</label>
+        <input type="text" name="doi">
+        <input type="submit" value="Hae tiedot">
+    </form>
+    <label for="tyyppi">Valitse tyyppi</label>
     <select name="tyyppi" onchange="valitseFunction(this)">
         <option value="0">-</option>
         <option value="1">Article</option>
@@ -72,8 +80,10 @@
     </script>
     <br><br>
     
+    {% if er %}
+	    <p style="color: red;"> {{ er }} </p>
+    {% endif %}
     <form name="lisaaviite" action="/submit" method="POST">
-		<label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author" class="author" disabled>
@@ -108,6 +118,7 @@
         </dic>
         <input type="submit" id="submit" value="Lisää">
     </form>
+
     <h3>Hae lähteitä</h3>
     <form action="/haku" method="post">
         <select name="hakutyyppi">
