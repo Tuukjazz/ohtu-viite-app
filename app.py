@@ -13,7 +13,7 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
-        # db.execute("""DROP TABLE viite""")
+        #db.execute("""DROP TABLE viite""")
         db.execute("""CREATE TABLE IF NOT EXISTS viite(
             id INTEGER PRIMARY KEY,
             author VARCHAR(255) NOT NULL,
