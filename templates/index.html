@@ -130,6 +130,10 @@
             <option value="page">Page</option>
             <!--<option value="DOI">DOI-tunnus</option>-->
         </select>
+        <select name="tulostusmuoto">
+            <option value="bibtex">BibTex</option>
+            <option value="apa">APA</option>
+        </select>
         <input type="text" name="hakusana" placeholder="Syötä kentän arvo">
         <button type="submit">Hae</button>
     </form>
@@ -154,14 +158,13 @@
 </div>
 
             <div class="tulostus">
-                <p>Tulostusalue bibtex</p>
-
-                <ul class="bibtex">
+                <ul class="tuloste">
                     {% for entry in ml %}
-                    <li><pre>{{ entry }}</pre></li>
+                    <li>
+                    <pre>{{ entry }}</pre>
+                    </li>
                     {% endfor %}  
                 </ul>
-
             </div>
         </body>
 </html>
