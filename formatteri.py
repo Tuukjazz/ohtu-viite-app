@@ -1,4 +1,3 @@
-#Formatoi johonkin muotoon match casen avulla
 #Esimerkki BibTex
 #   @article{ id,
 #     author = {},
@@ -6,7 +5,9 @@
 #     year = {},
 #     journal = {},
 #     volume = {},
+#     number = {},
 #     pages = {}
+#     doi = {}
 #   }
 
 def muuttaja(lista):
