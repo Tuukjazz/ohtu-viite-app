@@ -45,7 +45,8 @@ def haku():
         cur.execute("select * from viite where " + hakukentta + " like '%" + hakusana + "%'")
         viitelista = cur.fetchall()
         cur.close()
-        return render_template("index.html", vl=viitelista, de=doierror, er=error_message)
+        muutettulista = muuttaja(viitelista)
+        return render_template("index.html", vl=viitelista, de=doierror, er=error_message, ml=muutettulista)
     return render_template('index.html')
 
 @app.route("/submit", methods=["POST"])
