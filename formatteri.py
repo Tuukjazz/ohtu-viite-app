@@ -33,7 +33,7 @@ def muuttaja(lista, tyyppi=None):
 
         case "apa":
             for viite in lista:
-                apa_entry = f"{{ APA { viite[0] } "
+                apa_entry = f"{{ APA Entry { viite[0] } "
                 apa_entry += f"}}"
                 ml.append(apa_entry)
 

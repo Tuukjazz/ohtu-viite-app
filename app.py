@@ -33,7 +33,7 @@ def home():
     cur.execute("select * from viite")
     viitelista = cur.fetchall()
     cur.close()
-    muutettulista = muutalista(viitelista)
+    muutettulista = muuttaja(viitelista)
     return render_template("index.html", vl=viitelista, er=error_message, de=doierror, ml=muutettulista)
 
 @app.route('/haku', methods=['GET', 'POST'])
@@ -46,7 +46,7 @@ def haku():
         cur.execute("select * from viite where " + hakukentta + " like '%" + hakusana + "%'")
         viitelista = cur.fetchall()
         cur.close()
-        muutettulista = muutalista(viitelista, tulostusmuoto)
+        muutettulista = muuttaja(viitelista, tulostusmuoto)
         return render_template("index.html", vl=viitelista, de=doierror, er=error_message, ml=muutettulista)
     return render_template('index.html')
 
@@ -115,11 +115,6 @@ def doi():
         get_db().commit()
         cur.close()
     return redirect('/')
-
-def muutalista(lista, hakumuoto=None):
-    muutettulista = muuttaja(lista, hakumuoto)
-    return muutettulista
-      
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
 if __name__ == "__main__":
