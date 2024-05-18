@@ -3,11 +3,12 @@ Library           SeleniumLibrary
 
 *** Variables ***
 ${BASE URL}       http://localhost:5000
-${BROWSER}        Firefox
+${BROWSER}        headlessfirefox
 
 *** Test Cases ***
 Submit Valid Form
     Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -18,6 +19,7 @@ Submit Valid Form
     Location Should Be    ${BASE URL}/
 
 Submit Invalid Year
+    Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -29,6 +31,7 @@ Submit Invalid Year
     Page Should Contain    Year must be a four-digit number (YYYY).
 
 Submit Invalid Volume
+    Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name
@@ -40,6 +43,7 @@ Submit Invalid Volume
     Page Should Contain    Volume must be a positive integer.
 
 Submit Invalid Pages
+    Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=journal     Journal Name

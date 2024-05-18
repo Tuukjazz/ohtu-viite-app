@@ -8,8 +8,16 @@
 </head>
 <body>
 <div>
-    <label for="tyyppi">Valitse tyyli</label>
-    <select name="tyyppi" onchange="valitseFunction(this)">
+    {% if de %}
+	    <p style="color: red;"> {{ de }} </p>
+    {% endif %}
+    <form name="haedoi" action="/doi" method="POST">
+        <label for="doi">Syötä DOI:</label>
+        <input type="text" name="doi">
+        <input type="submit" value="Hae tiedot">
+    </form>
+    <label for="tyyppi">Valitse tyyppi</label>
+    <select name="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
         <option value="0">-</option>
         <option value="1">Article</option>
         <option value="2">Book</option>
@@ -72,8 +80,10 @@
     </script>
     <br><br>
     
+    {% if er %}
+	    <p style="color: red;"> {{ er }} </p>
+    {% endif %}
     <form name="lisaaviite" action="/submit" method="POST">
-		<label>{{em}}</label>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author" class="author" disabled>
@@ -108,6 +118,7 @@
         </dic>
         <input type="submit" id="submit" value="Lisää">
     </form>
+
     <h3>Hae lähteitä</h3>
     <form action="/haku" method="post">
         <select name="hakutyyppi">
@@ -118,6 +129,10 @@
             <option value="volume">Volume</option>
             <option value="page">Page</option>
             <!--<option value="DOI">DOI-tunnus</option>-->
+        </select>
+        <select name="tulostusmuoto">
+            <option value="bibtex">BibTex</option>
+            <option value="apa">APA</option>
         </select>
         <input type="text" name="hakusana" placeholder="Syötä kentän arvo">
         <button type="submit">Hae</button>
@@ -143,22 +158,13 @@
 </div>
 
             <div class="tulostus">
-                <p>Tulostusalue bibtex/apa</p>
-
-                <ol class="ref-apa">
-                    {% for entry in fl %}
-                    <li>  
-                        {{ entry.Author }} {{ entry.Date}}. {{ entry.Title }}. <em>{{ entry.Journal }}</em>,
-                        <em>{{ entry.Volume }}</em>({{ entry.Issue }}), {{ entry.Pages }}. {{ entry.Osoite }}
+                <ul class="tuloste">
+                    {% for entry in ml %}
+                    <li>
+                    <pre>{{ entry }}</pre>
                     </li>
-                    </br>
-                    {% endfor %} 
-                </ol>
+                    {% endfor %}  
+                </ul>
             </div>
-
-
-            </ol>
-            </div>
-
         </body>
 </html>

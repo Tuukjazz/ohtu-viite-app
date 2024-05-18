@@ -1,10 +1,12 @@
 from doi import doiapi
+from formatteri import muuttaja
 from validation import validate_article
 import sqlite3
 from flask import Flask, render_template, request, redirect, g
 
 DATABASE = './database.db'
 app = Flask(__name__, static_folder='statics')
+doierror = ""
 error_message = ""
 
 def get_db():
@@ -31,8 +33,8 @@ def home():
     cur.execute("select * from viite")
     viitelista = cur.fetchall()
     cur.close()
-    return render_template("index.html", vl=viitelista, er=error_message)
-
+    muutettulista = muuttaja(viitelista)
+    return render_template("index.html", vl=viitelista, er=error_message, de=doierror, ml=muutettulista)
 
 @app.route('/haku', methods=['GET', 'POST'])
 def haku():
@@ -40,10 +42,12 @@ def haku():
         cur = get_db().cursor()
         hakusana = request.form['hakusana']
         hakukentta = request.form['hakutyyppi']
+        tulostusmuoto = request.form['tulostusmuoto']
         cur.execute("select * from viite where " + hakukentta + " like '%" + hakusana + "%'")
         viitelista = cur.fetchall()
         cur.close()
-        return render_template("index.html", vl=viitelista, er=error_message)
+        muutettulista = muuttaja(viitelista, tulostusmuoto)
+        return render_template("index.html", vl=viitelista, de=doierror, er=error_message, ml=muutettulista)
     return render_template('index.html')
 
 @app.route("/submit", methods=["POST"])
@@ -97,8 +101,19 @@ def delete():
 
 @app.route("/doi", methods=["POST"])
 def doi():
+    global doierror
     syote = request.form["doi"]
-    doiapi(syote)
+    bibtex = doiapi(syote)
+    if bibtex == "":
+        doierror = "Virheellinen DOI!"
+    else:
+        doierror = ""
+        avain = list(bibtex.keys())[0]
+        cur = get_db().cursor()
+        cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
+                    (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
+        get_db().commit()
+        cur.close()
     return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
