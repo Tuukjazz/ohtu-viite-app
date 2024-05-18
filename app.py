@@ -1,7 +1,8 @@
 from doi import doiapi
 from formatteri import muuttaja
-from validation import validate_article
+from validation import validate_article, validate_book, validate_inproceeding
 import sqlite3
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, g
 
 DATABASE = './database.db'
@@ -77,9 +78,25 @@ def submit():
         publisher = ""
 
     global error_message 
-    error_message = validate_article(author, title, journal, year, volume, pages, booktitle, publisher)
+    html = """
+    <select name="tyyppi" class="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
+        <option value="0">-</option>
+        <option value="1">Article</option>
+        <option value="2">Book</option>
+        <option value="3">Inproceeding</option>
+        <option value="4">Testi</option>
+    </select> """
+    soup = BeautifulSoup(html, 'html.parser')
+    value = soup.find('value', {"class", "tyyppi"})
+    if value == 1:
+        error_message = validate_article(author, title, journal, year, volume, pages)
+    if value == 2:
+        error_message = validate_book(author, title, year, booktitle)
+    if value == 3:
+        error_message = validate_inproceeding(author, title, year, publisher)
     if len(error_message) > 0:
-        return redirect('/')
+            return redirect('/')
+    
     # Tässä demotaan, että arvot on tosiaan saatu...
     print(author, title, year, journal, volume, pages, error_message)
     cur = get_db().cursor()
@@ -88,6 +105,7 @@ def submit():
     get_db().commit()
     cur.close()
     return redirect('/')
+    
 
 @app.route("/delete", methods=["POST"])
 def delete():
