@@ -18,6 +18,31 @@ Submit Valid Form
     Click Button    id=submit
     Location Should Be    ${BASE URL}/
 
+Submit Invalid Author
+    Select From List by Value      id=tyyppi    1 
+    Input Text      id=author      ${EMPTY}
+    Input Text      id=title       Example Title
+    Input Text      id=journal     Journal Name
+    Input Text      id=year        InvalidYear
+    Input Text      id=volume      10
+    Input Text      id=pages       20-30
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Author field cannot be empty.
+
+Submit Invalid Title
+    Select From List by Value      id=tyyppi    1 
+    Input Text      id=author      John Doe
+	Input Text      id=title       ${EMPTY}
+    Input Text      id=journal     Journal Name
+    Input Text      id=year        InvalidYear
+    Input Text      id=volume      10
+    Input Text      id=pages       20-30
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Title field cannot be empty.
+    
+	
 Submit Invalid Year
     Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
