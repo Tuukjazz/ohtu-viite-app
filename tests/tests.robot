@@ -79,6 +79,26 @@ Submit Invalid Pages
     Location Should Be    ${BASE URL}/
     Page Should Contain    Pages must be a range in the format "start-end" or a single number.
 
+Submit Invalid Year To Book 
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      John Doe
+    Input Text      id=title       Example Title
+    Input Text      id=year        20233
+	Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Year must be a four-digit number (YYYY).
+
+Submit Invalid Year To Inproceeding 
+    Select From List by Value      id=tyyppi    3 
+    Input Text      id=author      John Doe
+    Input Text      id=title       Example Title
+    Input Text      id=year        20233
+	Input Text      id=publisher   Example Publisher
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Year must be a four-digit number (YYYY).
+
 *** Keywords ***
 Error Message
     Run Keyword And Continue On Failure    Page Should Contain    Error message text here
