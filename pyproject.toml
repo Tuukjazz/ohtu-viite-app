@@ -12,6 +12,7 @@ db-sqlite3 = "^0.0.1"
 bibtexparser = "^1.4.1"
 robotframework = "^7.0"
 robotframework-seleniumlibrary = "^6.3.0"
+robot = "^20071211"
 beautifulsoup4 = "^4.12.3"
 
 
