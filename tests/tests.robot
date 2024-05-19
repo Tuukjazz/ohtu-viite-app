@@ -33,7 +33,7 @@ Submit Invalid Author
 Submit Invalid Title
     Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
-	Input Text      id=title       ${EMPTY}
+    Input Text      id=title       ${EMPTY}
     Input Text      id=journal     Journal Name
     Input Text      id=year        InvalidYear
     Input Text      id=volume      10
@@ -84,7 +84,7 @@ Submit Invalid Year To Book
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=year        20233
-	Input Text      id=booktitle   Example Book Title
+    Input Text      id=booktitle   Example Book Title
     Click Button    id=submit
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
@@ -94,7 +94,7 @@ Submit Invalid Year To Inproceeding
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
     Input Text      id=year        20233
-	Input Text      id=publisher   Example Publisher
+    Input Text      id=publisher   Example Publisher
     Click Button    id=submit
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
