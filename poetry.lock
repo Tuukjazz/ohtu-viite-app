@@ -407,16 +407,6 @@ files = [
 ]
 
 [[package]]
-name = "robot"
-version = "20071211"
-description = "Django application for Request Tracking"
-optional = false
-python-versions = "*"
-files = [
-    {file = "robot-20071211.tar.gz", hash = "sha256:b8f040c5a319c4ac6a2ecc09f4c1b6578be9bf3db74a1441534b08336088d406"},
-]
-
-[[package]]
 name = "robotframework"
 version = "7.0"
 description = "Generic automation framework for acceptance testing and robotic process automation (RPA)"
@@ -606,4 +596,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4ddb033996f39a2221dbb787ba9e5c9b8c01415ed34b81e507bc9ddbe61e680c"
+content-hash = "4919fa9b4284e8aa008463fa1c57d91a78d25598f9cb9e6bd826c70affc616dd"
