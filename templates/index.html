@@ -8,21 +8,23 @@
 </head>
 <body>
 <div>
+    <h1>Viite-app</h1>
     {% if de %}
 	    <p style="color: red;"> {{ de }} </p>
     {% endif %}
+    <h3>Hae DOI:n perusteella</h3>
     <form name="haedoi" action="/doi" method="POST">
         <label for="doi">Syötä DOI:</label>
         <input type="text" name="doi">
         <input type="submit" value="Hae tiedot">
     </form>
+    <h3>Syötä tiedot</h3>
     <label for="tyyppi">Valitse tyyppi</label>
     <select name="tyyppi" class="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
         <option value="0">-</option>
         <option value="1">Article</option>
         <option value="2">Book</option>
         <option value="3">Inproceeding</option>
-        <option value="4">Testi</option>
     </select>
     <script type="text/javascript">
         function valitseFunction(obj){
@@ -137,6 +139,7 @@
         <input type="text" name="hakusana" placeholder="Syötä kentän arvo">
         <button type="submit">Hae</button>
     </form>
+    <h3>Lähteesi</h3>
     <ol>
         {% for entry in vl %}
         <li>  
