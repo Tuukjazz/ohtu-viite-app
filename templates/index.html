@@ -8,84 +8,85 @@
 </head>
 <body>
 <div>
+    <h1>Viite-app</h1>
     {% if de %}
 	    <p style="color: red;"> {{ de }} </p>
     {% endif %}
+    <h3>Hae DOI:n perusteella</h3>
     <form name="haedoi" action="/doi" method="POST">
         <label for="doi">Syötä DOI:</label>
         <input type="text" name="doi">
         <input type="submit" value="Hae tiedot">
     </form>
+    <h3>Syötä tiedot</h3>
+    <label for="tyyppi">Valitse tyyppi</label>
+    <select name="tyyppi" class="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
+        <option value="0">-</option>
+        <option value="1">Article</option>
+        <option value="2">Book</option>
+        <option value="3">Inproceeding</option>
+        <option value="4">Testi</option>
+    </select>
+    <script type="text/javascript">
+        function valitseFunction(obj){
+           if (obj.value == "0"){
+                document.querySelector('.author').disabled = true;
+                document.querySelector('.title').disabled = true;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = true;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = true;
+            } 
+           if (obj.value == "1"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = false;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = false;
+                document.querySelector('.pages').disabled = false;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = true;
+           }
+           if (obj.value == "2"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = false;
+                document.querySelector('.publisher').disabled = true;
+           }
+           if (obj.value == "3"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = true;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = true;
+                document.querySelector('.pages').disabled = true;
+                document.querySelector('.booktitle').disabled = true;
+                document.querySelector('.publisher').disabled = false;
+           }
+           if (obj.value == "4"){
+                document.querySelector('.author').disabled = false;
+                document.querySelector('.title').disabled = false;
+                document.querySelector('.journal').disabled = false;
+                document.querySelector('.year').disabled = false;
+                document.querySelector('.volume').disabled = false;
+                document.querySelector('.pages').disabled = false;
+                document.querySelector('.booktitle').disabled = false;
+                document.querySelector('.publisher').disabled = false;
+            }
+        }
+    </script>
+    <br><br>
     
+    {% if er %}
+	    <p style="color: red;"> {{ er }} </p>
+    {% endif %}
     <form name="lisaaviite" action="/submit" method="POST">
-        <div>
-            <label for="tyyppi">Valitse tyyppi</label>
-            <select name="tyyppi" class="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
-                <option value="0">-</option>
-                <option value="1">Article</option>
-                <option value="2">Book</option>
-                <option value="3">Inproceeding</option>
-            </select>
-            {% if er %}
-                <p style="color: red;"> {{ er }} </p>
-            {% endif %}
-        <script type="text/javascript">
-            function valitseFunction(obj){
-                selectedvalue = obj.value
-                if (obj.value == "0"){
-                    document.querySelector('.author').disabled = true;
-                    document.querySelector('.title').disabled = true;
-                    document.querySelector('.journal').disabled = true;
-                    document.querySelector('.year').disabled = true;
-                    document.querySelector('.volume').disabled = true;
-                    document.querySelector('.pages').disabled = true;
-                    document.querySelector('.booktitle').disabled = true;
-                    document.querySelector('.publisher').disabled = true;
-                } 
-            if (obj.value == "1"){
-                    document.querySelector('.author').disabled = false;
-                    document.querySelector('.title').disabled = false;
-                    document.querySelector('.journal').disabled = false;
-                    document.querySelector('.year').disabled = false;
-                    document.querySelector('.volume').disabled = false;
-                    document.querySelector('.pages').disabled = false;
-                    document.querySelector('.booktitle').disabled = true;
-                    document.querySelector('.publisher').disabled = true;
-            }
-            if (obj.value == "2"){
-                    document.querySelector('.author').disabled = false;
-                    document.querySelector('.title').disabled = false;
-                    document.querySelector('.journal').disabled = true;
-                    document.querySelector('.year').disabled = false;
-                    document.querySelector('.volume').disabled = true;
-                    document.querySelector('.pages').disabled = true;
-                    document.querySelector('.booktitle').disabled = false;
-                    document.querySelector('.publisher').disabled = true;
-            }
-            if (obj.value == "3"){
-                    document.querySelector('.author').disabled = false;
-                    document.querySelector('.title').disabled = false;
-                    document.querySelector('.journal').disabled = true;
-                    document.querySelector('.year').disabled = false;
-                    document.querySelector('.volume').disabled = true;
-                    document.querySelector('.pages').disabled = true;
-                    document.querySelector('.booktitle').disabled = true;
-                    document.querySelector('.publisher').disabled = false;
-            }
-            if (obj.value == "4"){
-                    document.querySelector('.author').disabled = false;
-                    document.querySelector('.title').disabled = false;
-                    document.querySelector('.journal').disabled = false;
-                    document.querySelector('.year').disabled = false;
-                    document.querySelector('.volume').disabled = false;
-                    document.querySelector('.pages').disabled = false;
-                    document.querySelector('.booktitle').disabled = false;
-                    document.querySelector('.publisher').disabled = false;
-                }
-            }
-        </script>
-        <br><br>
-    </div>
         <dic class="form-rivi">
             <label for="author"> Author:</label>
             <input type="text" id="author" name="author" class="author" disabled>
@@ -139,6 +140,7 @@
         <input type="text" name="hakusana" placeholder="Syötä kentän arvo">
         <button type="submit">Hae</button>
     </form>
+    <h3>Lähteesi</h3>
     <ol>
         {% for entry in vl %}
         <li>  
