@@ -15,7 +15,7 @@ python3 app.py
 poetry shell
 robot tests
 ```
-Kun ohjelma on päällä
+Kun ohjelma on päällä.
 
 ### Käyttöohje
 Lisää haluamat artikkelin tiedot ja paina lisää-nappia. Lista artikkeleista löytyy alempana.
