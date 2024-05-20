@@ -99,6 +99,70 @@ Submit Invalid Year To Inproceeding
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
 
+Submit Valid Form To Book
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      John Doe
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+
+Submit Valid Form To Inproceeding
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    3 
+    Input Text      id=author      John Doe
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=publisher   Example Publisher
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+
+Submit Invalid Title To Book
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      John Doe
+    Input Text      id=title       ${EMPTY}
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Title field cannot be empty.
+
+Submit Invalid Author To Book
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      ${EMPTY}
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Author field cannot be empty.
+
+Submit Invalid Title To Inproceeding
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    3 
+    Input Text      id=author      John Doe
+    Input Text      id=title       ${EMPTY}
+    Input Text      id=year        2023
+    Input Text      id=publisher   Example Publisher
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Title field cannot be empty.
+
+Submit Invalid Author To Inproceeding
+    Open Browser    ${BASE URL}    ${BROWSER}
+    Select From List by Value      id=tyyppi    3 
+    Input Text      id=author      ${EMPTY}
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=publisher  Example Publisher
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Author field cannot be empty.
+
 *** Keywords ***
 Error Message
     Run Keyword And Continue On Failure    Page Should Contain    Error message text here
