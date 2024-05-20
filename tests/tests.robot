@@ -11,7 +11,7 @@ Submit Valid Form
     Select From List by Value      id=tyyppi    1 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
-    Input Text      id=journal     Journal Name
+    Input Text      id=journal     Journal Namegit
     Input Text      id=year        2023
     Input Text      id=volume      10
     Input Text      id=pages       20-30
@@ -89,6 +89,35 @@ Submit Invalid Year To Book
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
 
+Submit Valid Form To Book
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      John Doe
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+	
+Submit Invalid Title To Book
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      John Doe
+    Input Text      id=title       ${EMPTY}
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Title field cannot be empty.
+	
+Submit Invalid Author To Book
+    Select From List by Value      id=tyyppi    2 
+    Input Text      id=author      ${EMPTY}
+    Input Text      id=title       Example Title
+    Input Text      id=year        2023
+    Input Text      id=booktitle   Example Book Title
+    Click Button    id=submit
+    Location Should Be    ${BASE URL}/
+    Page Should Contain    Author field cannot be empty.
+	
 Submit Invalid Year To Inproceeding 
     Select From List by Value      id=tyyppi    3 
     Input Text      id=author      John Doe
@@ -99,18 +128,8 @@ Submit Invalid Year To Inproceeding
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
 
-Submit Valid Form To Book
-    Open Browser    ${BASE URL}    ${BROWSER}
-    Select From List by Value      id=tyyppi    2 
-    Input Text      id=author      John Doe
-    Input Text      id=title       Example Title
-    Input Text      id=year        2023
-    Input Text      id=booktitle   Example Book Title
-    Click Button    id=submit
-    Location Should Be    ${BASE URL}/
 
 Submit Valid Form To Inproceeding
-    Open Browser    ${BASE URL}    ${BROWSER}
     Select From List by Value      id=tyyppi    3 
     Input Text      id=author      John Doe
     Input Text      id=title       Example Title
@@ -119,30 +138,7 @@ Submit Valid Form To Inproceeding
     Click Button    id=submit
     Location Should Be    ${BASE URL}/
 
-Submit Invalid Title To Book
-    Open Browser    ${BASE URL}    ${BROWSER}
-    Select From List by Value      id=tyyppi    2 
-    Input Text      id=author      John Doe
-    Input Text      id=title       ${EMPTY}
-    Input Text      id=year        2023
-    Input Text      id=booktitle   Example Book Title
-    Click Button    id=submit
-    Location Should Be    ${BASE URL}/
-    Page Should Contain    Title field cannot be empty.
-
-Submit Invalid Author To Book
-    Open Browser    ${BASE URL}    ${BROWSER}
-    Select From List by Value      id=tyyppi    2 
-    Input Text      id=author      ${EMPTY}
-    Input Text      id=title       Example Title
-    Input Text      id=year        2023
-    Input Text      id=booktitle   Example Book Title
-    Click Button    id=submit
-    Location Should Be    ${BASE URL}/
-    Page Should Contain    Author field cannot be empty.
-
 Submit Invalid Title To Inproceeding
-    Open Browser    ${BASE URL}    ${BROWSER}
     Select From List by Value      id=tyyppi    3 
     Input Text      id=author      John Doe
     Input Text      id=title       ${EMPTY}
@@ -153,7 +149,6 @@ Submit Invalid Title To Inproceeding
     Page Should Contain    Title field cannot be empty.
 
 Submit Invalid Author To Inproceeding
-    Open Browser    ${BASE URL}    ${BROWSER}
     Select From List by Value      id=tyyppi    3 
     Input Text      id=author      ${EMPTY}
     Input Text      id=title       Example Title
