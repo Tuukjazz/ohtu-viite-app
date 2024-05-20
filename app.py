@@ -2,7 +2,6 @@ from doi import doiapi
 from formatteri import muuttaja
 from validation import validate_article, validate_book, validate_inproceeding
 import sqlite3
-from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, g
 
 DATABASE = './database.db'
@@ -51,54 +50,46 @@ def haku():
         return render_template("index.html", vl=viitelista, de=doierror, er=error_message, ml=muutettulista)
     return render_template('index.html')
 
-@app.route("/submit", methods=["POST"])
+@app.route("/submit", methods=["POST", "get"])
 def submit():
+    value = request.form["tyyppi"]
+    if value == "0":
+        return redirect('/')
+
     author = request.form["author"]
     title = request.form["title"]
     year = request.form["year"]
-    try: 
-        journal = request.form["journal"]
-    except:
-        journal = ""
-    try: 
-        volume = request.form["volume"]
-    except:
-        volume = ""
-    try: 
-        pages = request.form["pages"]
-    except:
-        pages = ""
-    try: 
-        booktitle = request.form["booktitle"]
-    except:
-        booktitle = ""
-    try: 
-        publisher = request.form["publisher"]
-    except:
-        publisher = ""
+    journal = ""
+    volume = ""
+    pages = ""
+    booktitle = ""
+    publisher = ""
 
-    global error_message 
-    html = """
-    <select name="tyyppi" class="tyyppi" id="tyyppi" onchange="valitseFunction(this)">
-        <option value="0">-</option>
-        <option value="1">Article</option>
-        <option value="2">Book</option>
-        <option value="3">Inproceeding</option>
-        <option value="4">Testi</option>
-    </select> """
-    soup = BeautifulSoup(html, 'html.parser')
-    value = soup.find('value', {"class", "tyyppi"})
-    if value == 1:
-        error_message = validate_article(author, title, journal, year, volume, pages)
-    if value == 2:
-        error_message = validate_book(author, title, year, booktitle)
-    if value == 3:
-        error_message = validate_inproceeding(author, title, year, publisher)
-    if len(error_message) > 0:
-            return redirect('/')
+    if value == "1":
+        journal = request.form["journal"]
+        volume = request.form["volume"]
+        pages = request.form["pages"]
+    if value == "2":
+        booktitle = request.form["booktitle"]
+    if value == "3":
+        publisher = request.form["publisher"]
     
+    global error_message
+    if value == "1":
+        error_message = validate_article(author, title, year, journal, volume, pages)
+        print(author, title, year, journal, volume, pages, error_message)
+    if value == "2":
+        error_message = validate_book(author, title, year, booktitle)
+        print(author, title, year, booktitle, error_message)
+    if value == "3":
+        error_message = validate_inproceeding(author, title, year, publisher)
+        print(author, title, year, publisher, error_message)
+    
+    if len(error_message) > 0:
+        return redirect('/')
+
     # Tässä demotaan, että arvot on tosiaan saatu...
-    print(author, title, year, journal, volume, pages, error_message)
+    
     cur = get_db().cursor()
     cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (author, title, year, journal, volume, pages, booktitle, publisher))
