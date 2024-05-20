@@ -12,7 +12,7 @@ python3 app.py
 ```
 ### Testaus
 ```
-poetry sell
+poetry shell
 robot tests
 ```
 Kun ohjelma on päällä
