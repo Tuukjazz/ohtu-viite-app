@@ -1,3 +1,5 @@
+import re
+
 #Esimerkki BibTex
 #   @article{ id,
 #     author = {},
@@ -21,7 +23,9 @@ def muuttaja(lista, tyyppi=None):
 
         case "bibtex":
              for viite in lista:
-                bibtex_entry = f"@article{{ { viite[0] },\n"
+                pattern = r'[^a-zA-Z]'
+                nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
+                bibtex_entry = f"@article{{{ nimi },\n"
                 bibtex_entry += f"  author = {viite[1]},\n"
                 bibtex_entry += f"  title = {viite[2]},\n"
                 bibtex_entry += f"  year = {viite[3]},\n"
