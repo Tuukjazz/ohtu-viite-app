@@ -121,9 +121,29 @@ def doi():
         else:
             doierror = ""
             avain = list(bibtex.keys())[0]
+            try:
+                journal = bibtex[avain]["journal"]
+            except KeyError:
+                journal = ""
+            try:
+                volume = bibtex[avain]["volume"]
+            except KeyError:
+                volume = ""
+            try:
+                pages = bibtex[avain]["pages"]
+            except KeyError:
+                pages = ""
+            try:
+                booktitle = bibtex[avain]["booktitle"]
+            except KeyError:
+                booktitle = ""
+            try:
+                publisher = bibtex[avain]["publisher"]
+            except KeyError:
+                publisher = ""
             cur = get_db().cursor()
-            cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
-                        (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
+            cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], journal, volume, pages, booktitle, publisher))
             get_db().commit()
             cur.close()
     return redirect('/')
