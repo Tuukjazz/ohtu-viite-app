@@ -112,17 +112,40 @@ def delete():
 def doi():
     global doierror
     syote = request.form["doi"]
-    bibtex = doiapi(syote)
-    if bibtex == "":
-        doierror = "Virheellinen DOI!"
+    if syote.strip() == "":
+        doierror = "Invalid DOI!"
     else:
-        doierror = ""
-        avain = list(bibtex.keys())[0]
-        cur = get_db().cursor()
-        cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
-                    (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
-        get_db().commit()
-        cur.close()
+        bibtex = doiapi(syote)
+        if bibtex == "":
+            doierror = "Invalid DOI!"
+        else:
+            doierror = ""
+            avain = list(bibtex.keys())[0]
+            try:
+                journal = bibtex[avain]["journal"]
+            except KeyError:
+                journal = ""
+            try:
+                volume = bibtex[avain]["volume"]
+            except KeyError:
+                volume = ""
+            try:
+                pages = bibtex[avain]["pages"]
+            except KeyError:
+                pages = ""
+            try:
+                booktitle = bibtex[avain]["booktitle"]
+            except KeyError:
+                booktitle = ""
+            try:
+                publisher = bibtex[avain]["publisher"]
+            except KeyError:
+                publisher = ""
+            cur = get_db().cursor()
+            cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], journal, volume, pages, booktitle, publisher))
+            get_db().commit()
+            cur.close()
     return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")

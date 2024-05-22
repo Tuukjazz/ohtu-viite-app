@@ -168,6 +168,16 @@ Submit Invalid Year To Inproceeding
     Location Should Be    ${BASE URL}/
     Page Should Contain    Year must be a four-digit number (YYYY).
 
+Submit Empty Doi
+    Input Text  id=doi  \
+    Click Button  id=submitdoi
+    Page Should Contain  Invalid DOI!
+
+Submit Invalid Doi
+    Input Text  id=doi  asdf
+    Click Button  id=submitdoi
+    Page Should Contain  Invalid DOI!
+
 *** Keywords ***
 Error Message
     Run Keyword And Continue On Failure    Page Should Contain    Error message text here
