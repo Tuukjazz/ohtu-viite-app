@@ -112,17 +112,20 @@ def delete():
 def doi():
     global doierror
     syote = request.form["doi"]
-    bibtex = doiapi(syote)
-    if bibtex == "":
-        doierror = "Virheellinen DOI!"
+    if syote.strip() == "":
+        doierror = "Invalid DOI!"
     else:
-        doierror = ""
-        avain = list(bibtex.keys())[0]
-        cur = get_db().cursor()
-        cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
-                    (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
-        get_db().commit()
-        cur.close()
+        bibtex = doiapi(syote)
+        if bibtex == "":
+            doierror = "Invalid DOI!"
+        else:
+            doierror = ""
+            avain = list(bibtex.keys())[0]
+            cur = get_db().cursor()
+            cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
+                        (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
+            get_db().commit()
+            cur.close()
     return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")

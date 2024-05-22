@@ -9,18 +9,18 @@
 <body>
 <div>
     <h1>Viite-app</h1>
+
+    <h3>Hae DOI:n perusteella</h3>
     {% if de %}
 	    <p style="color: red;"> {{ de }} </p>
     {% endif %}
-    <h3>Hae DOI:n perusteella</h3>
     <form name="haedoi" action="/doi" method="POST">
         <label for="doi">Syötä DOI:</label>
-        <input type="text" name="doi">
-        <input type="submit" value="Hae tiedot">
+        <input type="text" id="doi" name="doi">
+        <input type="submit" id="submitdoi" value="Hae tiedot">
     </form>
+
     <h3>Syötä tiedot</h3>
-    
-    
     {% if er %}
 	    <p style="color: red;"> {{ er }} </p>
     {% endif %}
