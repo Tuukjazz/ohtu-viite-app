@@ -112,7 +112,8 @@ def delete():
 def doi():
     global doierror
     syote = request.form["doi"]
-    if syote.strip() == "":
+    syote = syote.strip()
+    if syote == "":
         doierror = "Invalid DOI!"
     else:
         bibtex = doiapi(syote)
@@ -121,6 +122,18 @@ def doi():
         else:
             doierror = ""
             avain = list(bibtex.keys())[0]
+            try:
+                author = bibtex[avain]["author"]
+            except KeyError:
+                author = ""
+            try:
+                title = bibtex[avain]["title"]
+            except KeyError:
+                title = ""
+            try:
+                year = bibtex[avain]["year"]
+            except KeyError:
+                year = ""
             try:
                 journal = bibtex[avain]["journal"]
             except KeyError:
@@ -143,7 +156,7 @@ def doi():
                 publisher = ""
             cur = get_db().cursor()
             cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                        (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], journal, volume, pages, booktitle, publisher))
+                        (author, title, year, journal, volume, pages, booktitle, publisher))
             get_db().commit()
             cur.close()
     return redirect('/')

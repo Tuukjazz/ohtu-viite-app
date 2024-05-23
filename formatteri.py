@@ -35,15 +35,28 @@ def muuttaja(lista, tyyppi=None):
 
         case "bibtex":
              for viite in lista:
+
+                if viite[7] != "" and viite[6] != "":
+                    pattern = r'[^a-zA-Z]'
+                    nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
+                    bibtex_entry = f"@inproceedings{{{ nimi },\n"
+                    bibtex_entry += f"  author = {{{viite[1]}}},\n"
+                    bibtex_entry += f"  title = {{{viite[2]}}},\n"
+                    bibtex_entry += f"  booktitle = {{{viite[7]}}},\n"
+                    bibtex_entry += f"  year = {{{viite[3]}}},\n"
+                    bibtex_entry += f"}}"
+                    ml.append(bibtex_entry)
+
+                    continue
                 
                 if viite[7] != "":
                     pattern = r'[^a-zA-Z]'
                     nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
                     bibtex_entry = f"@book{{{ nimi },\n"
-                    bibtex_entry += f"  author = {viite[1]},\n"
-                    bibtex_entry += f"  title = {viite[2]},\n"
-                    bibtex_entry += f"  year = {viite[3]},\n"
-                    bibtex_entry += f"  journal = {viite[7]},\n"
+                    bibtex_entry += f"  author = {{{viite[1]}}},\n"
+                    bibtex_entry += f"  title = {{{viite[2]}}},\n"
+                    bibtex_entry += f"  year = {{{viite[3]}}},\n"
+                    bibtex_entry += f"  publisher = {{{viite[8]}}},\n"
                     bibtex_entry += f"}}"
                     ml.append(bibtex_entry)
 
@@ -52,26 +65,14 @@ def muuttaja(lista, tyyppi=None):
                 pattern = r'[^a-zA-Z]'
                 nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
                 bibtex_entry = f"@article{{{ nimi },\n"
-                bibtex_entry += f"  author = {viite[1]},\n"
-                bibtex_entry += f"  title = {viite[2]},\n"
-                bibtex_entry += f"  year = {viite[3]},\n"
-                bibtex_entry += f"  journal = {viite[4]},\n"
-                bibtex_entry += f"  volume = {viite[5]},\n"
-                bibtex_entry += f"  pages = {viite[6]}\n"
+                bibtex_entry += f"  author = {{{viite[1]}}},\n"
+                bibtex_entry += f"  title = {{{viite[2]}}},\n"
+                bibtex_entry += f"  journal = {{{viite[4]}}},\n"
+                bibtex_entry += f"  year = {{{viite[3]}}},\n"
                 bibtex_entry += f"}}"
                 ml.append(bibtex_entry)
 
         case "apa":
-            for viite in lista:
-
-                if viite[7] != "":
-                    apa_entry = f"{{ APA Kirja { viite[0] } "
-                    apa_entry += f"}}"
-                    ml.append(apa_entry)
-                    continue
-
-                apa_entry = f"{{ APA Artilleli { viite[0] } "
-                apa_entry += f"}}"
-                ml.append(apa_entry)
+            ml.append("TODO")
    
     return ml
