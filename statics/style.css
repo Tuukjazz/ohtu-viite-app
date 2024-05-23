@@ -15,13 +15,17 @@
 body {
   display: flex;
   flex-direction: row;
+  background-color: lightgray;
+  text-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 2%;
 }
 
 .tulostus {
-  width: 35%;
+  width: 50%;
   border: solid;
   float: right;
-  margin-left: 30%;
+  background-color: white;
 }
 
 .ref-apa {
@@ -31,6 +35,28 @@ body {
   list-style-type: none;
 }
 
-.bibtex {
+.tuloste {
   list-style-type: none;
+}
+
+/*poistonappi*/
+form > input[name^="id"] {
+  background: lightcoral;
+}
+
+div {
+  max-width: 45%;
+}
+
+h1 {
+  background-color: lightblue;
+  padding: 15px; 
+  margin: 0;
+  border: solid;
+}
+
+h3 {
+  background-color: aliceblue;
+  border: solid;
+  padding-left: 2%;
 }
