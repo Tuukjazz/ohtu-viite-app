@@ -9,8 +9,20 @@ import re
 #     volume = {},
 #     number = {},
 #     pages = {}
-#     doi = {}
 #   }
+
+
+#db.execute("""CREATE TABLE IF NOT EXISTS viite(
+#            id INTEGER PRIMARY KEY,
+#            author VARCHAR(255) NOT NULL,
+#            title VARCHAR(255) NOT NULL,
+#            year INTEGER NOT NULL,
+#            journal VARCHAR(255),
+#            volume VARCHAR(50),
+#            pages VARCHAR(50),
+#            booktitle VARCHAR(255),
+#            publisher VARCHAR(255)
+#            )""")
 
 def muuttaja(lista, tyyppi=None):
 
@@ -23,6 +35,20 @@ def muuttaja(lista, tyyppi=None):
 
         case "bibtex":
              for viite in lista:
+                
+                if viite[7] != "":
+                    pattern = r'[^a-zA-Z]'
+                    nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
+                    bibtex_entry = f"@book{{{ nimi },\n"
+                    bibtex_entry += f"  author = {viite[1]},\n"
+                    bibtex_entry += f"  title = {viite[2]},\n"
+                    bibtex_entry += f"  year = {viite[3]},\n"
+                    bibtex_entry += f"  journal = {viite[7]},\n"
+                    bibtex_entry += f"}}"
+                    ml.append(bibtex_entry)
+
+                    continue
+
                 pattern = r'[^a-zA-Z]'
                 nimi = f'{re.split(pattern, viite[1], maxsplit=1)[0]}{viite[3]}{re.split(pattern, viite[2], maxsplit=1)[0]}'.lower()
                 bibtex_entry = f"@article{{{ nimi },\n"
@@ -37,9 +63,15 @@ def muuttaja(lista, tyyppi=None):
 
         case "apa":
             for viite in lista:
-                apa_entry = f"{{ APA Entry { viite[0] } "
+
+                if viite[7] != "":
+                    apa_entry = f"{{ APA Kirja { viite[0] } "
+                    apa_entry += f"}}"
+                    ml.append(apa_entry)
+                    continue
+
+                apa_entry = f"{{ APA Artilleli { viite[0] } "
                 apa_entry += f"}}"
                 ml.append(apa_entry)
-
    
     return ml
