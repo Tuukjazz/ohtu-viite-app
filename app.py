@@ -112,17 +112,53 @@ def delete():
 def doi():
     global doierror
     syote = request.form["doi"]
-    bibtex = doiapi(syote)
-    if bibtex == "":
-        doierror = "Virheellinen DOI!"
+    syote = syote.strip()
+    if syote == "":
+        doierror = "Invalid DOI!"
     else:
-        doierror = ""
-        avain = list(bibtex.keys())[0]
-        cur = get_db().cursor()
-        cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages) VALUES (?, ?, ?, ?, ?, ?)",
-                    (bibtex[avain]["author"], bibtex[avain]["title"], bibtex[avain]["year"], bibtex[avain]["journal"], bibtex[avain]["volume"], bibtex[avain]["pages"]))
-        get_db().commit()
-        cur.close()
+        bibtex = doiapi(syote)
+        if bibtex == "":
+            doierror = "Invalid DOI!"
+        else:
+            doierror = ""
+            avain = list(bibtex.keys())[0]
+            try:
+                author = bibtex[avain]["author"]
+            except KeyError:
+                author = ""
+            try:
+                title = bibtex[avain]["title"]
+            except KeyError:
+                title = ""
+            try:
+                year = bibtex[avain]["year"]
+            except KeyError:
+                year = ""
+            try:
+                journal = bibtex[avain]["journal"]
+            except KeyError:
+                journal = ""
+            try:
+                volume = bibtex[avain]["volume"]
+            except KeyError:
+                volume = ""
+            try:
+                pages = bibtex[avain]["pages"]
+            except KeyError:
+                pages = ""
+            try:
+                booktitle = bibtex[avain]["booktitle"]
+            except KeyError:
+                booktitle = ""
+            try:
+                publisher = bibtex[avain]["publisher"]
+            except KeyError:
+                publisher = ""
+            cur = get_db().cursor()
+            cur.execute("INSERT INTO viite (author, title, year, journal, volume, pages, booktitle, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        (author, title, year, journal, volume, pages, booktitle, publisher))
+            get_db().commit()
+            cur.close()
     return redirect('/')
 
 # Tämä vaaditaan jos ohjelman ajaa: "poetry run python app.py" (Toinen vaihtoehto: "python -m flask run")
