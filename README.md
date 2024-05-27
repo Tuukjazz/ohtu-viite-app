@@ -37,5 +37,5 @@ Vaatimukset ovat analysoitu, suunniteltu, ohjelmoitu, testattu ja integroitu muu
 Kehittäjät lupautuvat testaamaan ohjelman käynnistymisen ja testit, ennen mergeä deviin.
 Mainiin mergataan vasta, kun ryhmä päättää yhdessä siitä.
 ### Projektin raportti
-Linkki [projektin raporttiin](https://docs.google.com/spreadsheets/d/1Y8zzDWfnMRQlfKNQXj7rSJLi5pE2ypAosV2M5X0VCbM/edit#gid=1)
+Linkki [projektin raporttiin](https://docs.google.com/document/d/1tVY7ALB4xsomiiDVuwkkvZ-wSBAjeifeeMH3VlBULh8/edit)
 
